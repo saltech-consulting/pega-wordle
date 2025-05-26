@@ -1,4 +1,3 @@
-````markdown
 # Pega-Wordle – Play it on Your Laptop
 
 This guide will help you get the Pega-Wordle game running on your Windows or macOS laptop.
@@ -29,7 +28,7 @@ Before you can run the game, you need to install Node.js. This is a software env
    ```bash
    node -v   # should start with v20
    npm  -v   # should print a matching npm version
-````
+```
 
 ---
 
@@ -111,7 +110,3 @@ The list of valid solutions—and their on-screen hints—lives in **`src/data/p
 
    * If `npm run dev` is running, the browser hot-reloads automatically.
    * Otherwise, restart the dev server or run `npm run build` again to include the updated list in the offline bundle.
-
-```
-```
-
