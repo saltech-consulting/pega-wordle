@@ -179,3 +179,8 @@ main {
   background-color: #787c7e; /* Dark Grey */
   color: white;
 }
+
+.hint {
+  margin-top: 1rem;
+  font-style: italic;
+}

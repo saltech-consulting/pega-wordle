@@ -2,13 +2,14 @@ import './App.css';
 import Board from './components/Board';
 import Keyboard from './components/Keyboard';
 import useWordle from './logic/useWordle';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';          // ← add useState
 import { GAME_STATE } from './utils/constants';
 
 
 function App() {
   const {
-    solution, // For debugging
+    solution,
+    hint,                     // ← new
     submittedGuesses,
     currentGuess,
     statuses,
@@ -59,6 +60,9 @@ function App() {
     };
   }, [addLetter, removeLetter, submitGuess, gameState]); // Add dependencies
 
+  // Local state to toggle hint visibility
+  const [showHint, setShowHint] = useState(false);
+
   return (
     <div id="app-container">
       <header>
@@ -74,6 +78,8 @@ function App() {
           statuses={statuses}
           currentRow={currentRow}
         />
+        <button onClick={() => setShowHint((v) => !v)}>Hint</button>
+        {showHint && <p className="hint">{hint}</p>}
         <Keyboard onKey={handleKey} keyStatuses={keyStatuses} />
       </main>
       {/* For debugging: <p>Solution: {useWordle().solution}</p> */}

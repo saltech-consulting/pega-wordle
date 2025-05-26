@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { WORD_LENGTH, MAX_GUESSES, TILE_STATUSES, GAME_STATE, KEY_STATUSES } from '../utils/constants';
+import wordList from '../data/pegawords.json';   // ← add
 
 // Function to evaluate statuses for a guess against the solution
 const getStatuses = (guess, solution) => {
@@ -34,7 +35,10 @@ const getStatuses = (guess, solution) => {
 
 
 const useWordle = () => {
-  const [solution, setSolution] = useState("RULES"); // Hard-coded for now
+  // Pick a random entry once on mount
+  const randomEntry = wordList[Math.floor(Math.random() * wordList.length)];
+  const [solution] = useState(randomEntry.word.toUpperCase());
+  const [hint] = useState(randomEntry.def);
   const [submittedGuesses, setSubmittedGuesses] = useState([]); // Array of strings
   const [currentGuess, setCurrentGuess] = useState(""); // String being typed
   const [statuses, setStatuses] = useState( // Array of arrays of tile statuses
@@ -69,6 +73,12 @@ const useWordle = () => {
       // console.log("Guess must be 5 letters long."); // Optionally provide feedback
       return;
     }
+    // TODO: Add word validation against the full word list (not just solution)
+    // if (!wordList.some(entry => entry.word.toUpperCase() === currentGuess)) {
+    //   console.log("Not a valid word.");
+    //   return;
+    // }
+
     if (currentRow >= MAX_GUESSES) {
       // console.log("No more guesses allowed.");
       return;
@@ -125,6 +135,7 @@ const useWordle = () => {
 
   return {
     solution,
+    hint,           // ← expose hint
     submittedGuesses,
     currentGuess,
     statuses,
