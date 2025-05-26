@@ -28,7 +28,7 @@ Before you can run the game, you need to install Node.js. This is a software env
    ```bash
    node -v   # should start with v20
    npm  -v   # should print a matching npm version
-```
+   ```
 
 ---
 
