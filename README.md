@@ -32,7 +32,7 @@ Before you can run the game, you need to install Node.js. This is a software env
 
 ---
 
-## 2 · Get the Game Files
+## 2 Get the Game Files
 
 1. **Download the project:**
 
@@ -44,7 +44,7 @@ Before you can run the game, you need to install Node.js. This is a software env
 
 ---
 
-## 3 · Run the Game
+## 3 Run the Game
 
 1. **Open a command-line window:**
 
