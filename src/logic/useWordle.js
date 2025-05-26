@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { WORD_LENGTH, MAX_GUESSES, TILE_STATUSES, GAME_STATE, KEY_STATUSES } from '../utils/constants';
-import wordList from '../data/pegawords.json';   // ← add
+import wordList from '../data/pegawords.json';
+
+// Helper to randomly pick a word-definition pair
+const getRandomEntry = () => wordList[Math.floor(Math.random() * wordList.length)];
 
 // Function to evaluate statuses for a guess against the solution
 const getStatuses = (guess, solution) => {
@@ -35,10 +38,10 @@ const getStatuses = (guess, solution) => {
 
 
 const useWordle = () => {
-  // Pick a random entry once on mount
-  const randomEntry = wordList[Math.floor(Math.random() * wordList.length)];
-  const [solution] = useState(randomEntry.word.toUpperCase());
-  const [hint] = useState(randomEntry.def);
+  // Initialise solution & hint from one random entry
+  const initialEntry = getRandomEntry();
+  const [solution, setSolution] = useState(initialEntry.word.toUpperCase());
+  const [hint, setHint] = useState(initialEntry.def);
   const [submittedGuesses, setSubmittedGuesses] = useState([]); // Array of strings
   const [currentGuess, setCurrentGuess] = useState(""); // String being typed
   const [statuses, setStatuses] = useState( // Array of arrays of tile statuses
@@ -48,10 +51,22 @@ const useWordle = () => {
   const [gameState, setGameState] = useState(GAME_STATE.PLAYING);
   const [keyStatuses, setKeyStatuses] = useState({}); // e.g. {'A': 'correct', 'B': 'present'}
 
-  // TODO: Implement random word selection in a later step
-  // useEffect(() => {
-  //   // setSolution(selectRandomWord());
-  // }, []);
+  // Public helper to start a fresh game
+  const resetGame = () => {
+    const { word, def } = getRandomEntry();
+    setSolution(word.toUpperCase());
+    setHint(def);
+    setSubmittedGuesses([]);
+    setCurrentGuess("");
+    setStatuses(
+      Array(MAX_GUESSES)
+        .fill(null)
+        .map(() => Array(WORD_LENGTH).fill(TILE_STATUSES.EMPTY))
+    );
+    setCurrentRow(0);
+    setGameState(GAME_STATE.PLAYING);
+    setKeyStatuses({});
+  };
 
   const addLetter = (letter) => {
     if (gameState !== GAME_STATE.PLAYING) return;
@@ -96,7 +111,7 @@ const useWordle = () => {
     currentGuess.split('').forEach((char, index) => {
       const status = guessStatuses[index];
       // A key should only be upgraded in status (absent -> present -> correct)
-      if (status === TILE_STATUSES.CORRECT || 
+      if (status === TILE_STATUSES.CORRECT ||
           (status === TILE_STATUSES.PRESENT && newKeyStatuses[char] !== TILE_STATUSES.CORRECT) ||
           (status === TILE_STATUSES.ABSENT && !newKeyStatuses[char])) {
         if (status === TILE_STATUSES.CORRECT) {
@@ -122,7 +137,7 @@ const useWordle = () => {
       // console.log(`Game Over! The word was: ${solution}`);
     }
   };
-  
+
   // For testing getStatuses:
   // useEffect(() => {
   //   console.log("Testing getStatuses('RULES', 'RULES'):", getStatuses('RULES', 'RULES')); // Expected: all correct
@@ -135,7 +150,7 @@ const useWordle = () => {
 
   return {
     solution,
-    hint,           // ← expose hint
+    hint,
     submittedGuesses,
     currentGuess,
     statuses,
@@ -145,6 +160,7 @@ const useWordle = () => {
     addLetter,
     removeLetter,
     submitGuess,
+    resetGame,
   };
 };
 

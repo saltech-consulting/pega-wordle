@@ -2,14 +2,14 @@ import './App.css';
 import Board from './components/Board';
 import Keyboard from './components/Keyboard';
 import useWordle from './logic/useWordle';
-import { useEffect, useState } from 'react';          // ← add useState
+import { useEffect, useState } from 'react';
 import { GAME_STATE } from './utils/constants';
 
 
 function App() {
   const {
     solution,
-    hint,                     // ← new
+    hint,
     submittedGuesses,
     currentGuess,
     statuses,
@@ -19,6 +19,7 @@ function App() {
     addLetter,
     removeLetter,
     submitGuess,
+    resetGame,
   } = useWordle();
 
   const handleKey = (key) => {
@@ -71,7 +72,7 @@ function App() {
       <main>
         {gameState === GAME_STATE.WON && <div className="message win">You Won!</div>}
         {gameState === GAME_STATE.LOST && <div className="message lose">Game Over! The word was: {solution}</div>}
-        
+
         <Board
           submittedGuesses={submittedGuesses}
           currentGuess={currentGuess}
@@ -80,6 +81,9 @@ function App() {
         />
         <button onClick={() => setShowHint((v) => !v)}>Hint</button>
         {showHint && <p className="hint">{hint}</p>}
+        <button onClick={() => { resetGame(); setShowHint(false); }}>
+          New&nbsp;Game
+        </button>
         <Keyboard onKey={handleKey} keyStatuses={keyStatuses} />
       </main>
       {/* For debugging: <p>Solution: {useWordle().solution}</p> */}
