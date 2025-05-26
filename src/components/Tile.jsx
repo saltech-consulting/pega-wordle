@@ -1,11 +1,14 @@
 import React from 'react';
 
+import React from 'react';
+import { TILE_STATUSES } from '../utils/constants';
+
 // eslint-disable-next-line react/prop-types
 const Tile = ({ letter, status }) => {
-  // Placeholder: Renders a single tile.
-  // 'status' will be used to apply different styles (e.g., colors).
+  // Ensure status defaults to empty if undefined or null
+  const tileStatusClass = status || TILE_STATUSES.EMPTY;
   return (
-    <div className={`tile ${status || 'empty'}`}>
+    <div className={`tile ${tileStatusClass}`}>
       {letter}
     </div>
   );

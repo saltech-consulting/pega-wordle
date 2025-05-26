@@ -92,6 +92,10 @@ main {
    background-color: transparent; /* Or specific theme background */
    border: 2px solid #565758; /* Darker border for dark theme empty tiles */
 }
+.tile.editing { /* Style for tiles in the current typing row that have a letter */
+  border-color: #878a8c; /* A slightly more prominent border for active typing */
+  /* You might want a subtle background or animation for these too */
+}
 
 
 .keyboard {
@@ -154,4 +158,24 @@ main {
   .keyboard button.absent {
     background-color: #a7adc0; 
   }
+}
+
+/* Win/Loss Messages */
+.message {
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.message.win {
+  background-color: #6aaa64; /* Green */
+  color: white;
+}
+
+.message.lose {
+  background-color: #787c7e; /* Dark Grey */
+  color: white;
 }

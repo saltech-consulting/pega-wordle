@@ -1,89 +1,138 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { WORD_LENGTH, MAX_GUESSES, TILE_STATUSES, GAME_STATE, KEY_STATUSES } from '../utils/constants';
+
+// Function to evaluate statuses for a guess against the solution
+const getStatuses = (guess, solution) => {
+  const guessChars = guess.split('');
+  const solutionChars = solution.split('');
+  const statuses = Array(solution.length).fill(TILE_STATUSES.ABSENT);
+  const solutionLetterCounts = {};
+
+  // Count letters in solution for accurate 'present' status
+  solutionChars.forEach(letter => {
+    solutionLetterCounts[letter] = (solutionLetterCounts[letter] || 0) + 1;
+  });
+
+  // First pass: Mark 'correct' letters
+  guessChars.forEach((letter, index) => {
+    if (letter === solutionChars[index]) {
+      statuses[index] = TILE_STATUSES.CORRECT;
+      solutionLetterCounts[letter]--;
+    }
+  });
+
+  // Second pass: Mark 'present' letters
+  guessChars.forEach((letter, index) => {
+    if (statuses[index] !== TILE_STATUSES.CORRECT && solutionLetterCounts[letter] > 0) {
+      statuses[index] = TILE_STATUSES.PRESENT;
+      solutionLetterCounts[letter]--;
+    }
+  });
+
+  return statuses;
+};
+
 
 const useWordle = () => {
-  const solution = "RULES"; // Hard-coded solution as per requirements
-
-  // Initialize guesses: 6 rows, 5 columns, all empty strings
-  const [guesses, setGuesses] = useState(Array(6).fill(null).map(() => Array(5).fill('')));
-  
-  // Initialize statuses for tiles (e.g., 'correct', 'present', 'absent')
-  const [statuses, setStatuses] = useState(Array(6).fill(null).map(() => Array(5).fill('')));
-
+  const [solution, setSolution] = useState("RULES"); // Hard-coded for now
+  const [submittedGuesses, setSubmittedGuesses] = useState([]); // Array of strings
+  const [currentGuess, setCurrentGuess] = useState(""); // String being typed
+  const [statuses, setStatuses] = useState( // Array of arrays of tile statuses
+    Array(MAX_GUESSES).fill(null).map(() => Array(WORD_LENGTH).fill(TILE_STATUSES.EMPTY))
+  );
   const [currentRow, setCurrentRow] = useState(0);
-  const [currentCol, setCurrentCol] = useState(0); // To track current letter position in the row
+  const [gameState, setGameState] = useState(GAME_STATE.PLAYING);
+  const [keyStatuses, setKeyStatuses] = useState({}); // e.g. {'A': 'correct', 'B': 'present'}
 
-  const enterLetter = (letter) => {
-    if (currentCol < 5 && currentRow < 6) {
-      const newGuesses = guesses.map((row, rIdx) => {
-        if (rIdx === currentRow) {
-          const newRow = [...row];
-          newRow[currentCol] = letter;
-          return newRow;
-        }
-        return row;
-      });
-      setGuesses(newGuesses);
-      setCurrentCol(currentCol + 1);
-      console.log(`Letter entered: ${letter}. Current guess: ${newGuesses[currentRow].join('')}`);
+  // TODO: Implement random word selection in a later step
+  // useEffect(() => {
+  //   // setSolution(selectRandomWord());
+  // }, []);
+
+  const addLetter = (letter) => {
+    if (gameState !== GAME_STATE.PLAYING) return;
+    if (currentGuess.length < WORD_LENGTH) {
+      setCurrentGuess(prev => prev + letter.toUpperCase());
     }
   };
 
-  const deleteLetter = () => {
-    if (currentCol > 0) {
-      const newGuesses = guesses.map((row, rIdx) => {
-        if (rIdx === currentRow) {
-          const newRow = [...row];
-          newRow[currentCol - 1] = ''; // Clear the letter
-          return newRow;
-        }
-        return row;
-      });
-      setGuesses(newGuesses);
-      setCurrentCol(currentCol - 1);
-      console.log(`Letter deleted. Current guess: ${newGuesses[currentRow].join('')}`);
+  const removeLetter = () => {
+    if (gameState !== GAME_STATE.PLAYING) return;
+    if (currentGuess.length > 0) {
+      setCurrentGuess(prev => prev.slice(0, -1));
     }
   };
 
   const submitGuess = () => {
-    if (currentRow < 6 && currentCol === 5) {
-      const currentGuessStr = guesses[currentRow].join('');
-      console.log(`Guess submitted: ${currentGuessStr}`);
-      // Stub: Actual validation and status update logic will go here.
-      // For now, just move to the next row if not the last row.
-      
-      // Example of status update (to be refined)
-      const newStatusesRow = guesses[currentRow].map((char, index) => {
-        if (solution[index] === char) return 'correct';
-        if (solution.includes(char)) return 'present';
-        return 'absent';
-      });
+    if (gameState !== GAME_STATE.PLAYING) return;
+    if (currentGuess.length !== WORD_LENGTH) {
+      // console.log("Guess must be 5 letters long."); // Optionally provide feedback
+      return;
+    }
+    if (currentRow >= MAX_GUESSES) {
+      // console.log("No more guesses allowed.");
+      return;
+    }
 
-      const newStatuses = [...statuses];
-      newStatuses[currentRow] = newStatusesRow;
-      setStatuses(newStatuses);
+    const guessStatuses = getStatuses(currentGuess, solution);
 
-      if (currentGuessStr === solution) {
-        console.log("Congratulations! You've guessed the word!");
-        // Potentially set a game over state here
-      } else if (currentRow < 5) {
-        setCurrentRow(currentRow + 1);
-        setCurrentCol(0); // Reset column for the new row
-      } else {
-        console.log(`Game over! The word was: ${solution}`);
-        // Potentially set a game over state here
+    // Update tile statuses for the current row
+    const newStatuses = [...statuses];
+    newStatuses[currentRow] = guessStatuses;
+    setStatuses(newStatuses);
+
+    // Update key statuses
+    const newKeyStatuses = { ...keyStatuses };
+    currentGuess.split('').forEach((char, index) => {
+      const status = guessStatuses[index];
+      // A key should only be upgraded in status (absent -> present -> correct)
+      if (status === TILE_STATUSES.CORRECT || 
+          (status === TILE_STATUSES.PRESENT && newKeyStatuses[char] !== TILE_STATUSES.CORRECT) ||
+          (status === TILE_STATUSES.ABSENT && !newKeyStatuses[char])) {
+        if (status === TILE_STATUSES.CORRECT) {
+            newKeyStatuses[char] = KEY_STATUSES.CORRECT;
+        } else if (status === TILE_STATUSES.PRESENT && newKeyStatuses[char] !== KEY_STATUSES.CORRECT) {
+            newKeyStatuses[char] = KEY_STATUSES.PRESENT;
+        } else if (status === TILE_STATUSES.ABSENT && !newKeyStatuses[char]) { // only if not already present or correct
+            newKeyStatuses[char] = KEY_STATUSES.ABSENT;
+        }
       }
-    } else {
-      console.log("Cannot submit guess. Ensure 5 letters are entered.");
+    });
+    setKeyStatuses(newKeyStatuses);
+
+    setSubmittedGuesses(prev => [...prev, currentGuess]);
+    setCurrentRow(prev => prev + 1);
+    setCurrentGuess("");
+
+    if (currentGuess === solution) {
+      setGameState(GAME_STATE.WON);
+      // console.log("Congratulations! You won!");
+    } else if (currentRow + 1 === MAX_GUESSES) {
+      setGameState(GAME_STATE.LOST);
+      // console.log(`Game Over! The word was: ${solution}`);
     }
   };
+  
+  // For testing getStatuses:
+  // useEffect(() => {
+  //   console.log("Testing getStatuses('RULES', 'RULES'):", getStatuses('RULES', 'RULES')); // Expected: all correct
+  //   console.log("Testing getStatuses('RUMES', 'RULES'):", getStatuses('RUMES', 'RULES')); // R,U,E,S correct, M absent
+  //   console.log("Testing getStatuses('APPLE', 'PAPER'):", getStatuses('APPLE', 'PAPER')); // A,P,P,E present, L absent
+  //   console.log("Testing getStatuses('SPEED', 'PEDAL'):", getStatuses('SPEED', 'PEDAL')); // P present, E correct, D present
+  //   console.log("Testing getStatuses('ALLOW', 'APPLE'):", getStatuses('ALLOW', 'APPLE')); // A correct, L present, L absent, O absent, W absent
+  // }, [solution]);
+
 
   return {
     solution,
-    guesses,
+    submittedGuesses,
+    currentGuess,
+    statuses,
     currentRow,
-    statuses, // Make sure statuses are returned
-    enterLetter,
-    deleteLetter, // Add deleteLetter to returned object
+    gameState,
+    keyStatuses,
+    addLetter,
+    removeLetter,
     submitGuess,
   };
 };

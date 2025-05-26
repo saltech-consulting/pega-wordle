@@ -1,25 +1,42 @@
 import React from 'react';
+import { KEY_STATUSES } from '../utils/constants'; // Assuming KEY_STATUSES are defined
 
 // eslint-disable-next-line react/prop-types
-const Keyboard = ({ onKey }) => {
-  // Placeholder: Renders a simple message and a few example keys
-  // In a later step, this will render a full on-screen keyboard
-  // and potentially listen for physical keyboard events.
+const Keyboard = ({ onKey, keyStatuses }) => {
+  const keyboardRows = [
+    "QWERTYUIOP".split(''),
+    "ASDFGHJKL".split(''),
+    ["ENTER", ..."ZXCVBNM".split(''), "BACKSPACE"],
+  ];
 
-  const handleKeyClick = (key) => {
-    if (onKey) {
-      onKey(key);
+  const getKeyClass = (key) => {
+    let className = "keyboard-button";
+    if (key === "ENTER" || key === "BACKSPACE") {
+      className += " wide";
     }
+    const status = keyStatuses[key.toUpperCase()]; // Ensure key is uppercase for lookup
+    if (status) {
+      className += ` ${status}`; // e.g., 'correct', 'present', 'absent'
+    }
+    return className;
   };
+
 
   return (
     <div className="keyboard">
-      <p>Keyboard Component</p>
-      <button onClick={() => handleKeyClick('Q')}>Q</button>
-      <button onClick={() => handleKeyClick('W')}>W</button>
-      <button onClick={() => handleKeyClick('E')}>E</button>
-      <button onClick={() => handleKeyClick('ENTER')}>ENTER</button>
-      <button onClick={() => handleKeyClick('BACKSPACE')}>BKSP</button>
+      {keyboardRows.map((row, rowIndex) => (
+        <div key={rowIndex} className="keyboard-row">
+          {row.map((key) => (
+            <button
+              key={key}
+              className={getKeyClass(key)}
+              onClick={() => onKey(key)}
+            >
+              {key === "BACKSPACE" ? "BKSP" : key}
+            </button>
+          ))}
+        </div>
+      ))}
     </div>
   );
 };
