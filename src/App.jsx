@@ -3,7 +3,7 @@ import Board from './components/Board';
 import Keyboard from './components/Keyboard';
 import useWordle from './logic/useWordle';
 import { useEffect, useState } from 'react';
-import { GAME_STATE } from './utils/constants';
+import { GAME_STATE, MAX_GUESSES } from './utils/constants';
 
 
 function App() {
@@ -64,6 +64,9 @@ function App() {
   // Local state to toggle hint visibility
   const [showHint, setShowHint] = useState(false);
 
+  const hintEnabled =
+    gameState === GAME_STATE.PLAYING && currentRow === MAX_GUESSES - 1;
+
   return (
     <div id="app-container">
       <header>
@@ -79,7 +82,12 @@ function App() {
           statuses={statuses}
           currentRow={currentRow}
         />
-        <button onClick={() => setShowHint((v) => !v)}>Hint</button>
+        <button
+          disabled={!hintEnabled}
+          onClick={() => hintEnabled && setShowHint(v => !v)}
+        >
+          Hint
+        </button>
         {showHint && <p className="hint">{hint}</p>}
         <button onClick={() => { resetGame(); setShowHint(false); }}>
           New&nbsp;Game
