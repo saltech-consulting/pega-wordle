@@ -6,10 +6,10 @@ This guide will help you get the Pega-Wordle game running on your Windows or mac
 
 Before you can run the game, you need to install Node.js. This is a software environment that Pega-Wordle needs to run. You only need to do this installation step once.
 
-1.  **Install Node.js (version 18 or newer):**
+1.  **Install Node.js (version 20 LTS or newer):**
     * **Windows:**
         1.  Open your web browser and go to <https://nodejs.org>.
-        2.  Download the installer labelled "LTS" (Long Term Support).
+        2.  Download the installer labelled **“20 LTS”** (Long-Term Support).
         3.  Once downloaded, run the installer. Accept the default options by clicking "Next" through the steps, and then "Finish".
     * **macOS:**
         * **Option 1 (if you use Homebrew):**
@@ -17,9 +17,17 @@ Before you can run the game, you need to install Node.js. This is a software env
             2.  In the Terminal window, type `brew install node` and press Enter.
         * **Option 2 (standard installer):**
             1.  Open your web browser and go to <https://nodejs.org>.
-            2.  Download the macOS installer (it will be a `.pkg` file).
+            2.  Download the macOS installer for the current **20 LTS** release (it will be a `.pkg` file).
             3.  Once downloaded, run the installer and follow the on-screen instructions.
 2.  **Restart your computer.** This is the simplest way to ensure that the new software (Node.js and its `npm` tool) is recognized by your system. Alternatively, you can close and reopen any open Command Prompt (Windows) or Terminal (macOS) windows.
+
+3.  **Verify the installation (recommended):**
+    * Open a new Command Prompt or Terminal window and run:
+      ```bash
+      node -v
+      npm -v
+      ```
+      You should see versions starting with `v20` (or higher) for Node and a matching `npm` version.
 
 ## 2 · Get the Game Files
 
@@ -70,6 +78,14 @@ Now that you have Node.js installed and the game files downloaded, here's how to
     * Copy the `http://localhost:XXXX` address shown in your Command Prompt or Terminal (e.g., `http://localhost:5173`).
     * Paste this address into your browser's address bar and press Enter.
     * The Pega-Wordle game should now load and be ready to play!
+
+6.  **(Optional) Build a standalone offline copy:**
+    * If you need to transfer the game to a machine that **doesn’t have Node.js installed**, you can create a static build that runs by simply opening an HTML file.
+    * In the same command-line window, press `Ctrl + C` to stop the dev server (if it’s still running), then run:
+      ```bash
+      npm run build
+      ```
+    * When the build finishes, a new `dist` folder appears. Copy this folder to the target computer (e.g., a booth laptop) and open `dist/index.html` in any modern browser — **no server or internet connection required**.
 
 **To stop the game server:**
 * Go back to the Command Prompt or Terminal window where you ran `npm run dev`.
