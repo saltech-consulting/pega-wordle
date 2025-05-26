@@ -8,7 +8,7 @@ import { GAME_STATE } from './utils/constants';
 
 function App() {
   const {
-    // solution, // For debugging
+    solution, // For debugging
     submittedGuesses,
     currentGuess,
     statuses,
@@ -66,7 +66,7 @@ function App() {
       </header>
       <main>
         {gameState === GAME_STATE.WON && <div className="message win">You Won!</div>}
-        {gameState === GAME_STATE.LOST && <div className="message lose">Game Over! The word was: {useWordle().solution}</div>}
+        {gameState === GAME_STATE.LOST && <div className="message lose">Game Over! The word was: {solution}</div>}
         
         <Board
           submittedGuesses={submittedGuesses}

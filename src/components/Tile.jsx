@@ -1,6 +1,4 @@
 import React from 'react';
-
-import React from 'react';
 import { TILE_STATUSES } from '../utils/constants';
 
 // eslint-disable-next-line react/prop-types
