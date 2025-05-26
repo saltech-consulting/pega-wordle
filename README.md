@@ -103,7 +103,7 @@ The list of valid solutions—and their on-screen hints—lives in **`src/data/p
 1. Open `src/data/pegawords.json` in a text editor.
 2. Insert, modify, or remove objects using the format above, following these rules:
 
-   * **`word`** – 4-6 **UPPERCASE** letters, unique within the file.
+   * **`word`** – 5 **UPPERCASE** letters, unique within the file.
    * **`def`** – a concise definition (≈ 1-2 lines, ≤ 100 characters).
 3. Keep the JSON valid: comma-separate entries and avoid a trailing comma after the last one.
 4. Save the file.
