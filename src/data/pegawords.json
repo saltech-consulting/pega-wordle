@@ -1,7 +1,22 @@
 [
-  { "word": "RULES", "def": "Pega rule container" },
-  { "word": "FLOW", "def": "Pega process flow" },
-  { "word": "CASE", "def": "Pega case type" },
-  { "word": "AGENT", "def": "Background processing entity" },
-  { "word": "PORTAL", "def": "User interface in Pega" }
+  { "word": "RULES",  "def": "Pega rule container" },
+  { "word": "AGENT",  "def": "Background processing entity" },
+  { "word": "STAGE",  "def": "Case lifecycle stage" },
+  { "word": "CLASS",  "def": "Rule or data class" },
+  { "word": "PARAM",  "def": "Parameter passed to a rule" },
+  { "word": "FIELD",  "def": "Field value rule" },
+  { "word": "QUEUE",  "def": "Background item queue" },
+  { "word": "EVENT",  "def": "Real-time platform signal" },
+  { "word": "TOKEN",  "def": "Authentication token" },
+  { "word": "INDEX",  "def": "Optimised table index" },
+  { "word": "VALUE",  "def": "Property default-value rule" },
+  { "word": "SKILL",  "def": "Operator skill tag" },
+  { "word": "ALERT",  "def": "Performance alert log" },
+  { "word": "TRACE",  "def": "Live tracer session" },
+  { "word": "CACHE",  "def": "Data page cache" },
+  { "word": "LOGIN",  "def": "User authentication step" },
+  { "word": "CHART",  "def": "Report visualisation" },
+  { "word": "DRAFT",  "def": "Draft-mode UI rule" },
+  { "word": "EMAIL",  "def": "Email-channel message" },
+  { "word": "PAGES",  "def": "Clipboard pages list" }
 ]
