@@ -1,0 +1,7 @@
+[
+  { "word": "RULES", "def": "Pega rule container" },
+  { "word": "FLOW", "def": "Pega process flow" },
+  { "word": "CASE", "def": "Pega case type" },
+  { "word": "AGENT", "def": "Background processing entity" },
+  { "word": "PORTAL", "def": "User interface in Pega" }
+]

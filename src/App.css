@@ -3,40 +3,155 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424; /* Default dark background */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media (prefers-color-scheme: light) {
+  #root {
+    color: #213547;
+    background-color: #ffffff;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+
+#app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between; /* Pushes keyboard down if container has height */
+  min-height: 90vh; /* Ensure it takes up most of the viewport height */
+}
+
+header {
+  margin-bottom: 2rem;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem; /* Space between board and keyboard */
+}
+
+/* Basic styling for Board, Tile, Keyboard can be added here or in separate files */
+/* For example: */
+.board {
+  display: grid;
+  grid-template-rows: repeat(6, 1fr); /* MAX_GUESSES */
+  gap: 5px;
+  margin-bottom: 20px; /* Space below the board */
+}
+
+.board-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* WORD_LENGTH */
+  gap: 5px;
+}
+
+.tile {
+  width: 60px; /* Adjust size as needed */
+  height: 60px; /* Adjust size as needed */
+  border: 2px solid #d3d6da; /* Light grey border for empty/default */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Tile status colors - these are placeholders, refine as needed */
+.tile.correct {
+  background-color: #6aaa64; /* Green */
+  border-color: #6aaa64;
+  color: white;
+}
+.tile.present {
+  background-color: #c9b458; /* Yellow */
+  border-color: #c9b458;
+  color: white;
+}
+.tile.absent {
+  background-color: #787c7e; /* Dark grey */
+  border-color: #787c7e;
+  color: white;
+}
+.tile.empty { /* Style for tiles that are part of an active, unfilled guess row */
+   background-color: transparent; /* Or specific theme background */
+   border: 2px solid #565758; /* Darker border for dark theme empty tiles */
+}
+
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem; /* Space between keyboard rows */
+}
+
+.keyboard-row {
+  display: flex;
+  gap: 0.25rem; /* Space between keys in a row */
+}
+
+.keyboard button {
+  padding: 0.75em 0.5em; /* Adjust padding for key size */
+  font-size: 1em; /* Base font size for keys */
+  min-width: 40px; /* Minimum width for letter keys */
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background-color: #818384; /* Default key color for dark mode */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  font-weight: bold;
+}
+
+.keyboard button:hover {
+  background-color: #6b6d6e;
+}
+
+.keyboard button.wide { /* For keys like Enter, Backspace */
+  min-width: 60px;
+}
+
+/* Key status colors - placeholders */
+.keyboard button.correct {
+  background-color: #6aaa64;
+}
+.keyboard button.present {
+  background-color: #c9b458;
+}
+.keyboard button.absent {
+  background-color: #3a3a3c; /* Darker grey for used absent letters */
+}
+
+
+@media (prefers-color-scheme: light) {
+  .tile.empty {
+    background-color: transparent;
+    border: 2px solid #d3d6da; /* Lighter border for light theme empty tiles */
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  .keyboard button {
+    background-color: #d3d6da; /* Default key color for light mode */
+    color: black;
+  }
+  .keyboard button:hover {
+    background-color: #b5b8ba;
+  }
+  .keyboard button.absent {
+    background-color: #a7adc0; 
+  }
 }
