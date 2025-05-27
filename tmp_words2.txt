@@ -1,0 +1,86 @@
+
+| Word                    | Hint                                                                                                                                                                        |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **ACORD**               | An insurance industry standard for data exchange (e.g. policy or claims information), often used when integrating with external insurance systems.                          |
+| **Actor**               | A participant (person or system) in a business process or use case that interacts with the workflow to achieve an outcome.                                                  |
+| **Admin**               | The superuser role or persona responsible for system settings and maintenance (also the name of the ops-focused studio).                                                    |
+| **Agent**               | Background process running on a schedule to perform automated tasks like updates or notifications.                                                                          |
+| **Agile**               | An iterative project delivery approach emphasizing flexibility, customer feedback, and incremental improvements.                                                            |
+| **Alert**               | System warning or diagnostic message captured in logs when performance issues or errors occur.                                                                              |
+| **Batch**               | A processing mode where many records are handled in bulk (often on a schedule) rather than in an immediate, real-time manner.                                               |
+| **BLOBS**               | Large binary storage fields in the database where the platform serializes entire case contents for flexible data storage.                                                   |
+| **Build**               | The process of assembling and compiling application components into a deployable package or working version of the software.                                                |
+| **Cache**               | Temporary storage of data in memory for quick access on repeat requests, improving performance.                                                                             |
+| **Cards**               | Visual elements on a portal page that display key case information and actions in a concise, tile-like format.                                                              |
+| **Cases**               | Work items or business transactions that the platform manages from start to resolution.                                                                                     |
+| **Chart**               | Graphical visualization of data (like a bar or pie) used in reports and dashboards for insights.                                                                            |
+| **Churn**               | Customer attrition or turnover rate; predicting this helps organizations take proactive steps to retain clients.                                                            |
+| **Claim**               | An insurance request for payment or coverage after a loss or incident, frequently managed as a case in insurance applications.                                              |
+| **Class**               | Abstract container or blueprint in the application hierarchy used to group related cases or rules by type.                                                                  |
+| **Cloud**               | Off-premises computing where applications run on remote servers in data centers rather than local hardware.                                                                 |
+| **Cover**               | A parent case that encapsulates and tracks a set of related subcases as one unified work item.                                                                              |
+| **Debug**               | The act of finding and fixing defects in an application, often by using logs and step-by-step tracing tools to isolate issues.                                              |
+| **Drill**               | To explore deeper into summarized data by clicking through a chart or report to see the underlying detailed information.                                                    |
+| **DXAPI**               | The platform’s headless Digital Experience interface that allows external front-end applications to work with cases and data via JSON services.                             |
+| **Email**               | Electronic message communications, commonly used as a channel for sending notifications or creating cases from an inbox.                                                    |
+| **Embed**               | Inserting the platform’s interface into an external web page or system using a generated snippet.                                                                           |
+| **Event**               | A trigger or occurrence that the system detects and can respond to, such as a specific condition being met or an external signal arriving.                                  |
+| **Excel**               | Spreadsheet software often used to import, export, or manipulate data that the platform can integrate with.                                                                 |
+| **Field**               | A single piece of information captured in a form, defined by a property in the application’s data model.                                                                    |
+| **Files**               | Documents or data stored on a file system that the application can read from or write to through connectors or listeners.                                                   |
+| **Flows**               | Visual process definitions that orchestrate assignments, decisions, and automation in the application.                                                                      |
+| **Forum**               | The online community site where Pega professionals ask questions, share knowledge, and help each other solve issues.                                                        |
+| **Fraud**               | Financial crime or deceit that business systems aim to detect and prevent using rules, analytics, or machine learning models.                                               |
+| **Guard**               | Protective best-practice guidelines in the platform that keep implementations on track and maintain high quality.                                                           |
+| **HIPAA**               | A US healthcare regulation requiring protection of patient data privacy, influencing compliance and security features in healthcare applications.                           |
+| **HTTPS**               | The secure web protocol used for encrypted data exchange between client and server (indicated by a lock icon in the browser).                                               |
+| **Index**               | A secondary record created for faster searching and reporting, mapping key fields to cases or other data for quick lookup.                                                  |
+| **Infra**               | The underlying hardware, software, and network resources that support and run the application environment.                                                                  |
+| **JBoss**               | A Java EE application server (former name of WildFly) used to run the platform’s applications in some on-premise deployments.                                               |
+| **JUnit**               | A unit testing framework for Java that enables automated test execution, often utilized in continuous integration pipelines.                                                |
+| **Kafka**               | A distributed streaming platform used for building real-time data feeds and messaging; often integrated for event processing needs.                                         |
+| **Layer**               | A level of the application structure used to separate and reuse functionality for different contexts (such as organization, division, or product-specific implementations). |
+| **Leads**               | Unqualified potential customers or opportunities tracked in a CRM application before they are converted into actual sales.                                                  |
+| **Linux**               | A popular open-source operating system often used to host enterprise applications like Pega on servers or cloud instances.                                                  |
+| **Lists**               | Ordered collections of items of the same type, such as sequences of values or objects stored together.                                                                      |
+| **Login**               | The process of signing into the application, typically by entering credentials or via single sign-on for authentication.                                                    |
+| **Maven**               | A build automation and dependency management tool for Java projects, used to compile and package the application for deployment.                                            |
+| **Merge**               | Combining two development branches or rule sets into one, integrating changes from multiple sources.                                                                        |
+| **Mixin**               | A reusable style definition in the UI skin that centralizes design settings (like colors or fonts) for consistency across the application.                                  |
+| **Modal**               | A pop-up dialog window in the interface that captures user input or displays information without leaving the current screen.                                                |
+| **Model**               | A predictive or decision blueprint (often statistical or machine learning) used to anticipate outcomes or suggest actions.                                                  |
+| **Nexus**               | A repository manager for software artifacts, often used to store and manage Pega deployment packages and shared libraries.                                                  |
+| **Nodes**               | Individual server instances in a cluster that share the application workload and data in memory.                                                                            |
+| **NoSQL**               | A class of databases that foregoes the traditional relational table structure, allowing flexible schemas and horizontal scaling.                                            |
+| **OAuth**               | An industry-standard protocol for secure delegated authorization, allowing one service to act on a user’s behalf to access another service’s data.                          |
+| **Offer**               | A recommended action or proposition presented to a customer, often determined by next-best-action logic in marketing or sales.                                              |
+| **Order**               | A request for products or services (like a purchase) that is processed as a case in sales or fulfillment workflows.                                                         |
+| **Param**               | A dynamic input value passed into a rule or process to influence its behavior at runtime.                                                                                   |
+| **Patch**               | A minor software update or hotfix release that addresses bugs or provides small enhancements without a full version upgrade.                                                |
+| **PCSSA**               | The mid-level Pega certification for system architects who have advanced beyond the basic entry-level credential (CSA).                                                     |
+| **PCLSA**               | The top-tier Pega architecture certification, demonstrating expert-level design and leadership skills in building applications.                                             |
+| **Pulse**               | An internal social feed on a case, allowing team members to collaborate via comments and updates.                                                                           |
+| **Queue**               | A holding list for items or tasks waiting to be processed, often used for asynchronous job execution.                                                                       |
+| **Regex**               | A pattern-matching expression used to validate formats or search within text (for example, in form validations).                                                            |
+| **Reuse**               | The practice of building components or rules so they can be utilized in multiple places, reducing duplicate effort and enhancing consistency.                               |
+| **Retro**               | A meeting held at the end of an Agile sprint where the team reflects on what went well and what could be improved.                                                          |
+| **Roles**               | Permission groups assigned to users that determine what parts of the application they can access or modify.                                                                 |
+| **Robot**               | An automated software assistant that performs repetitive tasks, either on a user's desktop or unattended on a server.                                                       |
+| **Route**               | Sending an assignment to a specific user or team based on criteria like availability or expertise.                                                                          |
+| **Scrum**               | A popular Agile framework structuring work into fixed-length sprints led by a facilitator and featuring daily stand-up meetings.                                            |
+| **Score**               | A numeric result from an AI model or analysis indicating likelihood or risk, used in automated decisions or next-best-action.                                               |
+| **Shape**               | Graphical element on a process diagram representing an action, decision, or sub-process in the workflow.                                                                    |
+| **Slack**               | A widely used team messaging application that can integrate with the platform for notifications or chatbot interactions.                                                    |
+| **Sonar**               | A code quality inspection tool (often paired with a "Qube" dashboard) used to enforce best practices and catch bugs early.                                                  |
+| **Split**               | A parallel branch in a process flow where multiple paths execute at once before coming back together.                                                                       |
+| **Stubs**               | Placeholder simulations of external services used in testing to mimic responses from systems that aren't available or built yet.                                            |
+| **Table**               | A structured display of data in rows and columns, commonly seen in user interface grids or representing records in a database.                                              |
+| **Tasks**               | Generic units of work to be completed, such as assignments in a case or items on a to-do list for an operator.                                                              |
+| **Teams**               | Microsoft’s collaboration platform for chat and meetings, which can be integrated as a communication channel in customer service cases.                                     |
+| **Theme**               | A design template controlling the overall look and feel of the application’s user interface (for example, the modern Cosmos UI).                                            |
+| **TOGAF**               | A framework for enterprise architecture that provides a structured approach to designing and implementing IT systems at a high level.                                       |
+| **Token**               | A small piece of data used for authentication or tracking, such as an access key for API calls.                                                                             |
+| **Trace**               | Step-by-step execution recorder used for debugging, showing each rule fired and action taken.                                                                               |
+| **Voice**               | The telephone channel for customer service, enabling spoken conversations and often integrated with IVR (phone menus) and speech analytics.                                 |
+| **Risks**               | Potential problems or uncertainties that could threaten a project’s success, identified and mitigated during project planning.                                              |
+

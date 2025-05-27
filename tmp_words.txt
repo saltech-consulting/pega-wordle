@@ -1,0 +1,203 @@
+| Word   | Revised Hint                                                                                   |
+| ------ | ---------------------------------------------------------------------------------------------- |
+| Abort  | Terminate a process prematurely before it finishes.                                            |
+| Actor  | Entity (person or system) that participates in or initiates a process.                         |
+| Adapt  | Adjust to new conditions or requirements in a project or system.                               |
+| Admin  | User with privileges to manage and configure a system or application.                          |
+| Adopt  | Take up or start using something new, such as a technology or practice.                        |
+| Agent  | Background service or process that performs automated tasks on a schedule.                     |
+| Agile  | Software development approach emphasizing flexibility and iterative progress.                  |
+| Alarm  | Notification of an urgent issue, prompting immediate attention.                                |
+| Alert  | System-generated warning or notification about a specific condition.                           |
+| Alias  | Alternate name or shorthand for an object or person in a system.                               |
+| Align  | Ensure components or stakeholders are in agreement on goals and approach.                      |
+| Alpha  | Early test version of software with incomplete features.                                       |
+| Array  | Ordered collection of elements accessed by an index in programming.                            |
+| Asset  | Item of value owned by a person or company, tracked in systems.                                |
+| Async  | Not occurring at the same time, allowing processes to run independently.                       |
+| Audio  | Sound content or signals processed or produced by an application.                              |
+| Audit  | Systematic record or log of actions for accountability and review.                             |
+| Azure  | Microsoft’s cloud computing platform for deploying applications and services.                  |
+| Batch  | Execution of jobs or tasks in large groups without manual intervention.                        |
+| Brand  | Distinct identity of a product or company, shaped by its name and reputation.                  |
+| Break  | Pause execution or exit from a loop or process, often used in debugging.                       |
+| Build  | Compile and assemble code into a working application or component.                             |
+| Buyer  | Person or organization that purchases goods or services.                                       |
+| Bytes  | Units of data, typically groups of 8 bits, used to measure storage or memory.                  |
+| Cache  | Temporary storage that saves recently used data for quicker access.                            |
+| Cases  | Instances of work or transactions managed in a workflow application.                           |
+| Catch  | Intercept and handle an error thrown during program execution.                                 |
+| Chain  | Series of connected elements or processes, like steps in a supply sequence.                    |
+| Champ  | Leading contender in a test, often paired with a “challenger” in experiments.                  |
+| Chart  | Visual diagram representing data or information (e.g., bar or pie).                            |
+| Check  | Verify correctness or presence of something, often as part of testing.                         |
+| Child  | Dependent element that derives from a parent entity, such as a sub-case.                       |
+| Claim  | Request for benefit or payment, especially in insurance or healthcare.                         |
+| Class  | Blueprint or template defining the structure and behavior of objects.                          |
+| Clean  | Free of errors or extraneous elements, such as well-prepared data.                             |
+| Clear  | Remove all contents or reset to an empty or default state.                                     |
+| Close  | Mark a case or process as completed or no longer active.                                       |
+| Cloud  | Infrastructure of remote servers accessed via the internet for data storage and computing.     |
+| Coach  | Mentor or guide who supports a team in improving performance (commonly in Agile).              |
+| Coder  | One who writes computer programs; a software developer.                                        |
+| Color  | Hue or shade used in design elements, often to improve user experience.                        |
+| Costs  | Expenses or resources required for a project or purchase.                                      |
+| Crash  | Abrupt failure of a program or system, causing it to stop working.                             |
+| Cyber  | Relating to computers or networks, often used when discussing digital security.                |
+| Cycle  | Complete series of stages or events that repeat in sequence.                                   |
+| Debug  | Process of identifying and resolving bugs or issues in software.                               |
+| Digit  | Single numerical character (0–9) used in representing numbers.                                 |
+| Dirty  | Marked as modified or unsaved, indicating changes that need saving.                            |
+| Draft  | Preliminary version of a document or design, subject to change.                                |
+| Drill  | Explore data at deeper levels of detail, as in diving into specifics.                          |
+| Dummy  | Placeholder or sample used during development in place of real data.                           |
+| Email  | Electronic message sent over a network, a common communication method in business.             |
+| Entry  | Item of data entered into a system, or a record in a list or log.                              |
+| Equal  | Having the same value or status, often used in comparisons.                                    |
+| Error  | Flaw in software causing incorrect results or failure in execution.                            |
+| Ethic  | Moral principle guiding responsible behavior in technology or business.                        |
+| Event  | Occurrence or action that triggers processes or responses in a system.                         |
+| Excel  | Widely used spreadsheet software, often integrated for data export/import.                     |
+| Facts  | Verified pieces of information used as evidence or reference.                                  |
+| False  | Boolean value indicating a negative or “no” condition.                                         |
+| Fatal  | Causing a program or process to terminate immediately due to a critical error.                 |
+| Fetch  | Retrieve data from a source, such as calling an API or database query.                         |
+| Field  | Individual data element or input area within a form or record.                                 |
+| Fixes  | Corrections applied to bugs or issues in software.                                             |
+| Fleet  | Group of vehicles or resources managed together, common in logistics.                          |
+| Float  | Numeric data type for decimals, or to position an element to one side in layout.               |
+| Flows  | Process diagrams or paths outlining how work moves through a system.                           |
+| Fonts  | Sets of typefaces used in text display for consistent style.                                   |
+| Forms  | User interface screens or documents with fields for inputting data.                            |
+| Forum  | Online platform where users discuss topics or ask and answer questions.                        |
+| Frame  | Structural element or outline that contains or supports content.                               |
+| Fraud  | Intentional deception for personal or financial gain, often fought with detection systems.     |
+| Goals  | Specific objectives or targets that an individual or organization aims to achieve.             |
+| Grade  | Rank or category assigned based on quality, performance, or other criteria.                    |
+| Grant  | Officially give or allow something, such as permission or funding.                             |
+| Graph  | Diagram of connected points or nodes showing relationships or data changes.                    |
+| Groom  | Refine and prioritize items (like backlog tasks) in preparation for development.               |
+| Group  | Collection of users or items considered as a single unit for organization or access.           |
+| Guard  | Protective measure to prevent errors or enforce standards (often used with “rails”).           |
+| Hotel  | Establishment offering lodging to travelers, often booked through reservation systems.         |
+| Image  | Picture or graphic file used in an interface or processed by a system.                         |
+| Inbox  | Personal worklist or mail folder where pending items or messages arrive.                       |
+| Index  | Database structure that improves lookup speed by organizing data on key fields.                |
+| Input  | Data provided to a system or program for processing.                                           |
+| Issue  | Problem or bug that needs to be resolved in a system or project.                               |
+| Label  | Text caption identifying a field or element in a user interface.                               |
+| Lanes  | Parallel tracks in a process diagram separating responsibilities or roles.                     |
+| Layer  | Level of abstraction in a system architecture or stack.                                        |
+| Leads  | Potential customers or clients that have shown interest, to be pursued by sales.               |
+| Learn  | Acquire knowledge or skills through study, practice, or experience.                            |
+| Level  | Position in a hierarchy or scale, often indicating degree or difficulty.                       |
+| Loans  | Money lent that is expected to be paid back, usually with interest.                            |
+| Local  | Relating to a specific machine or environment (as opposed to remote or global).                |
+| Logic  | Set of reasoning steps or rules that determines how decisions are made.                        |
+| Login  | Process of entering credentials to gain access to a system.                                    |
+| Loyal  | Faithful and committed, as in long-term customers or employees.                                |
+| Macro  | Single command or abbreviation that expands into a set of instructions or operations.          |
+| Merge  | Combine multiple elements (such as code branches or data sets) into one.                       |
+| Micro  | Very small in scale; often describes extremely granular components in a system architecture.   |
+| Mocks  | Simulated objects or components used in testing to mimic real ones.                            |
+| Modal  | Pop-up dialog that requires user interaction before returning to main workflow.                |
+| Model  | Abstract representation or blueprint, often for a system or predictive algorithm.              |
+| Money  | Currency or funds used as a medium of exchange in transactions.                                |
+| Mutex  | Object or mechanism that prevents simultaneous access to a resource (mutual exclusion).        |
+| Notes  | Annotations or comments added to provide context or record information.                        |
+| Offer  | Proposal of a product, service, or incentive presented to a customer.                          |
+| Order  | Request for a product or service, placed by a customer for fulfillment.                        |
+| Owner  | Individual accountable for a task, case, or system resource.                                   |
+| Pages  | Sections or screens in an application, or data containers in memory.                           |
+| Panel  | Dedicated section of a user interface or a group discussion on a specific topic.               |
+| Param  | Variable used to pass information into a process or function.                                  |
+| Parse  | Analyze text or data by breaking it into components that can be used.                          |
+| Patch  | Software update designed to fix bugs or security vulnerabilities.                              |
+| Payer  | Entity responsible for payment, such as an insurer covering a claim.                           |
+| Phase  | Distinct stage of a project or process with specific objectives.                               |
+| Phone  | Voice communication device or channel, often integrated into customer service systems.         |
+| Pilot  | Small-scale trial of a new system or process before full deployment.                           |
+| Point  | Single unit of measurement or detail (e.g., an Agile estimation metric).                       |
+| Pool   | Shared resource group or partition within a workflow or process diagram.                       |
+| Price  | Assigned cost or monetary value of a product or service.                                       |
+| Print  | Output text or data, typically for display or logging.                                         |
+| Proxy  | Server or component that acts on behalf of another to forward requests or data.                |
+| Pulse  | Internal feed or stream for collaboration updates within a system.                             |
+| Query  | Structured request to retrieve or manipulate data from a database.                             |
+| Queue  | List of items waiting to be processed, typically in order of arrival or priority.              |
+| Quote  | Formal statement of price or terms for products or services.                                   |
+| Rails  | Guiding tracks that keep development or processes within set boundaries.                       |
+| Range  | Span between minimum and maximum values, or extent of variation.                               |
+| Regex  | Pattern defined by a regular expression, used for matching strings in text.                    |
+| Reply  | Respond to a message or communication.                                                         |
+| Reset  | Restore settings or data to their initial default state.                                       |
+| Retro  | Agile meeting held after a sprint to reflect and plan improvements.                            |
+| Retry  | Attempt an operation again after a failure or error.                                           |
+| Reuse  | Utilize existing components or resources instead of creating new ones.                         |
+| Risks  | Potential issues or uncertainties that could negatively impact a project.                      |
+| Robot  | Automated bot or machine that performs tasks without human intervention.                       |
+| Roles  | Defined positions or functions that determine access rights and responsibilities.              |
+| Route  | Send or direct something along a specific path or to a particular destination.                 |
+| Rules  | Business logic definitions in a system that determine behavior or outcomes.                    |
+| Sales  | Activities related to selling products or services and managing customer relationships.        |
+| Scale  | Increase size or capacity to handle growing demand or volume.                                  |
+| Scope  | Defined boundaries of a project or process, specifying what’s included and excluded.           |
+| Score  | Numerical rating indicating performance, priority, or likelihood (e.g., credit rating).        |
+| Scrum  | Agile framework with time-boxed iterations and regular team ceremonies.                        |
+| Setup  | Initial configuration or arrangement needed to prepare a system for use.                       |
+| Shape  | Graphic element (like an icon) representing a step or control in a process flow.               |
+| Share  | Give others access to or use of something, such as information or resources.                   |
+| Sigma  | Sixth letter of the Greek alphabet, commonly used as a symbol in quality management methods.   |
+| Silos  | Isolated groups or systems that do not effectively communicate or share information.           |
+| Skill  | Expertise or ability that can be applied to perform tasks or roles.                            |
+| Smart  | Automated or intelligent, often describing systems that make decisions on their own.           |
+| Smoke  | Preliminary test run to catch basic issues before formal testing.                              |
+| Spike  | Short research or prototyping effort to investigate a solution approach.                       |
+| Split  | Divide or break something into separate parts or branches.                                     |
+| Squad  | Small, cross-functional team working together on a project.                                    |
+| Stack  | Collection of technologies or layers that form a complete platform or solution.                |
+| Staff  | Employees or personnel collectively within an organization.                                    |
+| Stage  | Major phase in a case lifecycle or project, containing related steps.                          |
+| Stake  | Personal or financial interest or share in an endeavor, held by someone involved.              |
+| Stale  | Out-of-date or no longer fresh; data that has not been refreshed recently.                     |
+| State  | Current condition or status of an object or process at a point in time.                        |
+| Stats  | Numerical metrics or data summaries that measure performance or outcomes.                      |
+| Steps  | Individual actions or tasks that are part of a larger process sequence.                        |
+| Stock  | Supply of goods available, or equity shares in a company.                                      |
+| Store  | Save data or keep something in a repository for later use.                                     |
+| Story  | Brief description of a requirement told from an end-user perspective (Agile context).          |
+| Stubs  | Minimal placeholder functions or components used to simulate parts of a system during testing. |
+| Style  | Consistent design or formatting conventions applied for a uniform look and feel.               |
+| Suite  | Collection of related tools or applications offered as a package.                              |
+| Super  | Prefix indicating elevated privileges or an extreme degree (as in a user with all access).     |
+| Table  | Structured arrangement of data in rows and columns, such as in a spreadsheet.                  |
+| Taxes  | Mandatory fees charged by a government on income, sales, etc., calculated by finance systems.  |
+| Teams  | Groups of people collaborating together towards a common goal.                                 |
+| Tests  | Procedures executed to verify that a system works as intended.                                 |
+| Theme  | Overall design style or look-and-feel applied across an application.                           |
+| Throw  | Explicitly generate an error or exception in a program to signal an issue.                     |
+| Timer  | Mechanism that triggers an action after a specified time interval.                             |
+| Toast  | Brief message that pops up in the UI to notify the user and then fades away.                   |
+| Tools  | Utilities or software applications used to accomplish development or administrative tasks.     |
+| Trace  | Detailed log or recording of step-by-step execution flow for debugging.                        |
+| Trade  | Exchange of goods, services, or assets between parties.                                        |
+| Train  | Teach or instruct people (or in AI, provide data to a model to learn from).                    |
+| Trees  | Hierarchical structures with branches, used to represent data or decisions.                    |
+| Trend  | General direction of change or development over time.                                          |
+| Trial  | Test run or evaluation period for a product or solution before full rollout.                   |
+| Trust  | Confidence in the reliability or integrity of a system, product, or team.                      |
+| Users  | Individuals who interact with a system or application to perform tasks.                        |
+| Value  | Importance, worth, or benefit of something, often measured against cost.                       |
+| Vault  | Secure repository for sensitive information, protected by encryption or access controls.       |
+| Video  | Medium for transmitting moving visual images and sound, used in calls or media playback.       |
+| Vision | Strategic plan or long-term goal that guides a project or organization.                        |
+| Voice  | Audio-based communication or control interface, such as speech input or output.                |
+| Waste  | Unnecessary work or resources that do not add value, targeted for elimination.                 |
+| While  | Loop that continues executing as long as its condition remains true.                           |
+| Ideas  | Creative concepts or suggestions intended to solve problems or improve outcomes.               |
+| Limit  | Maximum boundary or allowed value that should not be exceeded.                                 |
+| Rapid  | Fast-paced or quick, often describing accelerated development or change.                       |
+| Sheet  | Single page of a workbook or document used for organizing information.                         |
+| Shell  | Command-line interface used to enter and execute text-based commands.                          |
+| Tasks  | Pieces of work to be completed, often tracked on a to-do list or project plan.                 |
+

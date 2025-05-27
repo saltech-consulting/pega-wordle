@@ -20,7 +20,14 @@ function App() {
     removeLetter,
     submitGuess,
     resetGame,
+    remainingTime,
   } = useWordle();
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
 
   const handleKey = (key) => {
     if (gameState !== GAME_STATE.PLAYING && key !== 'ENTER') { // Allow Enter for potential restart
@@ -73,6 +80,7 @@ function App() {
         <h1>Pega-Wordle</h1>
       </header>
       <main>
+        <div className="timer-display">Time: {formatTime(remainingTime)}</div>
         {gameState === GAME_STATE.WON && <div className="message win">You Won!</div>}
         {gameState === GAME_STATE.LOST && <div className="message lose">Game Over! The word was: {solution}</div>}
 

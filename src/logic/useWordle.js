@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { WORD_LENGTH, MAX_GUESSES, TILE_STATUSES, GAME_STATE, KEY_STATUSES } from '../utils/constants';
+import { useState, useEffect, useCallback } from 'react';
+import { WORD_LENGTH, MAX_GUESSES, TILE_STATUSES, GAME_STATE, KEY_STATUSES, GAME_DURATION_SECONDS } from '../utils/constants';
 import wordList from '../data/pegawords.json';
 
 // Helper to randomly pick a word-definition pair
@@ -50,9 +50,10 @@ const useWordle = () => {
   const [currentRow, setCurrentRow] = useState(0);
   const [gameState, setGameState] = useState(GAME_STATE.PLAYING);
   const [keyStatuses, setKeyStatuses] = useState({}); // e.g. {'A': 'correct', 'B': 'present'}
+  const [remainingTime, setRemainingTime] = useState(GAME_DURATION_SECONDS);
 
   // Public helper to start a fresh game
-  const resetGame = () => {
+  const resetGame = useCallback(() => {
     const { word, def } = getRandomEntry();
     setSolution(word.toUpperCase());
     setHint(def);
@@ -66,7 +67,21 @@ const useWordle = () => {
     setCurrentRow(0);
     setGameState(GAME_STATE.PLAYING);
     setKeyStatuses({});
-  };
+    setRemainingTime(GAME_DURATION_SECONDS);
+  }, []);
+
+  // Timer effect
+  useEffect(() => {
+    if (gameState === GAME_STATE.PLAYING && remainingTime > 0) {
+      const timerId = setInterval(() => {
+        setRemainingTime(prevTime => prevTime - 1);
+      }, 1000);
+      return () => clearInterval(timerId);
+    } else if (remainingTime === 0 && gameState === GAME_STATE.PLAYING) {
+      setGameState(GAME_STATE.LOST);
+    }
+  }, [gameState, remainingTime, setGameState]);
+
 
   const addLetter = (letter) => {
     if (gameState !== GAME_STATE.PLAYING) return;
@@ -161,6 +176,7 @@ const useWordle = () => {
     removeLetter,
     submitGuess,
     resetGame,
+    remainingTime,
   };
 };
 

@@ -184,3 +184,16 @@ main {
   margin-top: 1rem;
   font-style: italic;
 }
+
+.timer-display {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #878a8c; /* Match other UI elements or choose a suitable color */
+}
+
+@media (prefers-color-scheme: light) {
+  .timer-display {
+    color: #565758; /* Adjust for light theme if needed */
+  }
+}

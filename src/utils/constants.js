@@ -35,3 +35,4 @@ export const GAME_STATE = {
 
 export const MAX_GUESSES = 6;
 export const WORD_LENGTH = 5;
+export const GAME_DURATION_SECONDS = 120;
