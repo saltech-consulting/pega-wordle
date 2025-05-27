@@ -35,6 +35,7 @@
 
 header {
   margin-bottom: 2rem;
+  width: 100%;
 }
 
 main {
@@ -195,5 +196,584 @@ main {
 @media (prefers-color-scheme: light) {
   .timer-display {
     color: #565758; /* Adjust for light theme if needed */
+  }
+}
+
+/* USER PROFILE STYLES */
+
+/* Header styles */
+.header-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 1rem;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.welcome-text {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.series-info {
+  font-size: 0.9rem;
+  color: #878a8c;
+  font-style: italic;
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.profile-button, .logout-button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #565758;
+  border-radius: 4px;
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.15s;
+}
+
+.profile-button:hover, .logout-button:hover {
+  background-color: #565758;
+}
+
+/* Game controls */
+.game-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.hint-button, .new-game-button {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #565758;
+  border-radius: 4px;
+  background-color: #818384;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.15s;
+}
+
+.hint-button:hover, .new-game-button:hover {
+  background-color: #6b6d6e;
+}
+
+.hint-button:disabled {
+  background-color: #3a3a3c;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* LOGIN FORM STYLES */
+.login-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  width: 100%;
+}
+
+.login-form {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid #565758;
+  border-radius: 8px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  text-align: left;
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: inherit;
+}
+
+.login-subtitle {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #878a8c;
+  font-size: 0.9rem;
+}
+
+.input-group {
+  margin-bottom: 1.5rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: inherit;
+}
+
+.autocomplete-container {
+  position: relative;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #565758;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: inherit;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #6aaa64;
+  box-shadow: 0 0 0 2px rgba(106, 170, 100, 0.2);
+}
+
+.suggestions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #2a2a2a;
+  border: 1px solid #565758;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.suggestion-item {
+  padding: 0.75rem;
+  cursor: pointer;
+  border-bottom: 1px solid #565758;
+  transition: background-color 0.15s;
+}
+
+.suggestion-item:hover,
+.suggestion-item.selected {
+  background-color: #6aaa64;
+  color: white;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.signup-info {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: rgba(106, 170, 100, 0.1);
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.back-button, .submit-button {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #565758;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.15s;
+}
+
+.back-button {
+  background-color: transparent;
+  color: inherit;
+}
+
+.back-button:hover {
+  background-color: #565758;
+}
+
+.submit-button {
+  background-color: #6aaa64;
+  color: white;
+  border-color: #6aaa64;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: #5a9954;
+}
+
+.submit-button:disabled {
+  background-color: #3a3a3c;
+  border-color: #3a3a3c;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.error-message {
+  background-color: rgba(220, 53, 69, 0.1);
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.8rem;
+  color: #878a8c;
+}
+
+/* USER PROFILE COMPONENT STYLES */
+.user-profile {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid #565758;
+  border-radius: 8px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  text-align: left;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #565758;
+}
+
+.user-info h3 {
+  margin: 0 0 0.25rem 0;
+  color: inherit;
+}
+
+.user-email {
+  color: #878a8c;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.switch-profile-button, .logout-button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #565758;
+  border-radius: 4px;
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.15s;
+}
+
+.switch-profile-button:hover, .logout-button:hover {
+  background-color: #565758;
+}
+
+.profile-stats {
+  margin-bottom: 2rem;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  color: #878a8c;
+}
+
+.stat-value {
+  font-weight: 500;
+}
+
+.best-games h4 {
+  margin: 1.5rem 0 1rem 0;
+  color: inherit;
+}
+
+.best-games-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.best-game-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.game-rank {
+  font-weight: bold;
+  color: #6aaa64;
+  min-width: 2rem;
+}
+
+.game-details {
+  flex: 1;
+}
+
+.game-word {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.game-stats {
+  color: #878a8c;
+  font-size: 0.9rem;
+}
+
+.no-best-games {
+  text-align: center;
+  color: #878a8c;
+  font-style: italic;
+  padding: 2rem;
+}
+
+.profile-footer {
+  border-top: 1px solid #565758;
+  padding-top: 1rem;
+  text-align: center;
+  color: #878a8c;
+  font-size: 0.9rem;
+}
+
+.profile-footer p {
+  margin: 0.25rem 0;
+}
+
+/* Switch profile mode */
+.switch-profile-mode {
+  max-width: 500px;
+}
+
+.profile-list p {
+  margin-bottom: 1rem;
+  color: #878a8c;
+}
+
+.profile-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid #565758;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-name {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.profile-email {
+  color: #878a8c;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.profile-stats {
+  color: #878a8c;
+  font-size: 0.8rem;
+}
+
+.switch-button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #6aaa64;
+  border-radius: 4px;
+  background-color: #6aaa64;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.15s;
+}
+
+.switch-button:hover {
+  background-color: #5a9954;
+}
+
+.switch-actions, .profile-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.cancel-button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #565758;
+  border-radius: 4px;
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.15s;
+}
+
+.cancel-button:hover {
+  background-color: #565758;
+}
+
+.no-profiles {
+  text-align: center;
+  padding: 2rem;
+  color: #878a8c;
+}
+
+.back-to-game-button {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #6aaa64;
+  border-radius: 4px;
+  background-color: #6aaa64;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.15s;
+}
+
+.back-to-game-button:hover {
+  background-color: #5a9954;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #878a8c;
+  padding: 2rem;
+}
+
+/* Light theme adjustments */
+@media (prefers-color-scheme: light) {
+  .login-form, .user-profile {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: #d3d6da;
+  }
+
+  .input-group input {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: #d3d6da;
+  }
+
+  .suggestions-dropdown {
+    background-color: #ffffff;
+    border-color: #d3d6da;
+  }
+
+  .suggestion-item {
+    border-color: #d3d6da;
+  }
+
+  .profile-option, .best-game-item {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: #d3d6da;
+  }
+
+  .profile-header {
+    border-color: #d3d6da;
+  }
+
+  .profile-footer {
+    border-color: #d3d6da;
+  }
+
+  .series-info {
+    color: #565758;
+  }
+
+  .user-email, .stat-label, .game-stats, .profile-stats, .login-subtitle, .login-footer, .profile-footer, .no-best-games, .no-profiles, .loading {
+    color: #565758;
+  }
+
+  .profile-button, .logout-button, .back-button, .cancel-button {
+    border-color: #d3d6da;
+  }
+
+  .profile-button:hover, .logout-button:hover, .back-button:hover, .cancel-button:hover {
+    background-color: #d3d6da;
+  }
+
+  .hint-button, .new-game-button {
+    background-color: #d3d6da;
+    color: black;
+    border-color: #d3d6da;
+  }
+
+  .hint-button:hover, .new-game-button:hover {
+    background-color: #b5b8ba;
+  }
+
+  .hint-button:disabled {
+    background-color: #e9ecef;
+    color: #6c757d;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .header-info {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .user-info {
+    align-items: center;
+    text-align: center;
+  }
+
+  .login-form, .user-profile {
+    margin: 0 1rem;
+    padding: 1.5rem;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-option {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+  }
+
+  .button-group {
+    justify-content: center;
   }
 }
