@@ -1850,8 +1850,8 @@ main {
 
 .back-button {
   padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: #818384;
+  border: 1px solid #565758;
   color: white;
   border-radius: 6px;
   cursor: pointer;
@@ -1859,7 +1859,7 @@ main {
 }
 
 .back-button:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background-color: #6b6d6e;
 }
 
 .spacer {
@@ -1901,8 +1901,8 @@ main {
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid transparent;
+  background-color: #818384;
+  border: 2px solid #565758;
   border-radius: 12px;
   color: white;
   cursor: pointer;
@@ -1911,13 +1911,26 @@ main {
 }
 
 .difficulty-button:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background-color: #6b6d6e;
   transform: translateY(-2px);
 }
 
-.difficulty-button.selected {
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 0 20px rgba(106, 170, 100, 0.3);
+.difficulty-button.selected.easy {
+  background-color: #4ade80;
+  border-color: #22c55e;
+  box-shadow: 0 0 20px rgba(74, 222, 128, 0.3);
+}
+
+.difficulty-button.selected.medium {
+  background-color: #fbbf24;
+  border-color: #f59e0b;
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+}
+
+.difficulty-button.selected.hard {
+  background-color: #ef4444;
+  border-color: #dc2626;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
 }
 
 .difficulty-name {
@@ -1932,7 +1945,7 @@ main {
   font-size: 0.9rem;
   opacity: 0.8;
   display: block;
-  color: rgba(255, 255, 255, 0.8);
+  color: white;
 }
 
 .start-game-button {

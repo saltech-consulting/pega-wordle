@@ -6,6 +6,8 @@ import Keyboard from './Keyboard';
 import { AI_DIFFICULTIES } from '../utils/aiStrategy';
 
 const AIVersusMode = ({ wordList, onBackToMenu }) => {
+  console.log('AIVersusMode component rendering, wordList length:', wordList?.length);
+  
   const [selectedDifficulty, setSelectedDifficulty] = useState('medium');
   const [gameState, setGameState] = useState('setup'); // setup, countdown, playing, finished
   const [countdown, setCountdown] = useState(3);
@@ -47,7 +49,7 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
     if (wordList && currentWord) {
       initializeAI();
     }
-  }, [initializeAI, wordList, currentWord]);
+  }, [wordList, currentWord, selectedDifficulty]);
 
   // Handle countdown
   useEffect(() => {
@@ -339,9 +341,8 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
             {Object.entries(AI_DIFFICULTIES).map(([key, config]) => (
               <button
                 key={key}
-                className={`difficulty-button ${selectedDifficulty === key ? 'selected' : ''}`}
+                className={`difficulty-button ${selectedDifficulty === key ? `selected ${key}` : ''}`}
                 onClick={() => handleDifficultyChange(key)}
-                style={{ borderColor: config.color }}
               >
                 <span className="difficulty-name">{config.name}</span>
                 <span className="difficulty-desc">{config.description}</span>
