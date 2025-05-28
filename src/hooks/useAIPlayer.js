@@ -10,6 +10,12 @@ export const useAIPlayer = (difficulty, wordList, targetWord) => {
   
   const aiRef = useRef(null);
   const gameStartedRef = useRef(false);
+  const targetWordRef = useRef(targetWord);
+  const gameStatusRef = useRef(gameStatus);
+  
+  // Update the refs whenever values change
+  targetWordRef.current = targetWord;
+  gameStatusRef.current = gameStatus;
 
   /**
    * Initialize the AI player
@@ -31,7 +37,6 @@ export const useAIPlayer = (difficulty, wordList, targetWord) => {
   const startAIGame = useCallback(async () => {
     if (!aiRef.current || gameStartedRef.current) return;
     
-    console.log('Starting AI game - setting status to playing');
     gameStartedRef.current = true;
     setGameStatus('playing');
     
@@ -45,14 +50,11 @@ export const useAIPlayer = (difficulty, wordList, targetWord) => {
    * Make an AI guess
    */
   const makeAIGuess = useCallback(async () => {
-    console.log('makeAIGuess called - gameStatus:', gameStatus, 'aiGuesses.length:', aiGuesses.length);
-    if (!aiRef.current || gameStatus === 'won' || gameStatus === 'lost') {
-      console.log('AI stopping - game finished or no AI');
+    if (!aiRef.current || gameStatusRef.current === 'won' || gameStatusRef.current === 'lost') {
       return;
     }
     
     if (aiGuesses.length >= MAX_GUESSES) {
-      console.log('AI stopping - max guesses reached');
       setGameStatus('lost');
       setAiStatus('Lost');
       return;
@@ -65,13 +67,18 @@ export const useAIPlayer = (difficulty, wordList, targetWord) => {
       // AI makes its guess
       const guess = await aiRef.current.makeGuess();
       
-      if (!guess || !targetWord) {
+      if (!guess) {
+        setIsThinking(false);
+        return;
+      }
+      
+      if (!targetWordRef.current) {
         setIsThinking(false);
         return;
       }
 
       // Calculate feedback for AI's guess
-      const feedback = calculateFeedback(guess, targetWord);
+      const feedback = calculateFeedback(guess, targetWordRef.current);
       
       // Update AI's knowledge
       aiRef.current.updateFromFeedback(guess, feedback);
@@ -84,10 +91,8 @@ export const useAIPlayer = (difficulty, wordList, targetWord) => {
       };
       
       // Update AI guesses
-      console.log('Adding AI guess:', guess, 'previous length:', aiGuesses.length);
       setAiGuesses(prev => {
         const newGuesses = [...prev, guessObj];
-        console.log('New AI guesses length:', newGuesses.length);
         return newGuesses;
       });
       
@@ -103,9 +108,7 @@ export const useAIPlayer = (difficulty, wordList, targetWord) => {
       }
       
       // Check if AI lost (max guesses reached)
-      console.log('AI guess count:', guessCount, 'MAX_GUESSES:', MAX_GUESSES);
       if (guessCount >= MAX_GUESSES) {
-        console.log('AI lost - max guesses reached');
         setGameStatus('lost');
         setAiStatus('Lost');
         setIsThinking(false);
@@ -118,7 +121,7 @@ export const useAIPlayer = (difficulty, wordList, targetWord) => {
       
       // Schedule next guess
       setTimeout(() => {
-        if (gameStatus === 'playing') {
+        if (gameStatusRef.current === 'playing') {
           makeAIGuess();
         }
       }, 500); // Brief pause between guesses
