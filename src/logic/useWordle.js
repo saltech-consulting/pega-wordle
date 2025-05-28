@@ -48,11 +48,11 @@ const useWordle = () => {
     Array(MAX_GUESSES).fill(null).map(() => Array(WORD_LENGTH).fill(TILE_STATUSES.EMPTY))
   );
   const [currentRow, setCurrentRow] = useState(0);
-  const [gameState, setGameState] = useState(GAME_STATE.PLAYING);
+  const [gameState, setGameState] = useState(GAME_STATE.IDLE);
   const [keyStatuses, setKeyStatuses] = useState({}); // e.g. {'A': 'correct', 'B': 'present'}
   const [remainingTime, setRemainingTime] = useState(GAME_DURATION_SECONDS);
 
-  // Public helper to start a fresh game
+  // Public helper to reset game state (but not start timer)
   const resetGame = useCallback(() => {
     const { word, def } = getRandomEntry();
     setSolution(word.toUpperCase());
@@ -65,10 +65,20 @@ const useWordle = () => {
         .map(() => Array(WORD_LENGTH).fill(TILE_STATUSES.EMPTY))
     );
     setCurrentRow(0);
-    setGameState(GAME_STATE.PLAYING);
+    setGameState(GAME_STATE.IDLE); // Set to IDLE after reset
     setKeyStatuses({});
-    setRemainingTime(GAME_DURATION_SECONDS);
+    setRemainingTime(GAME_DURATION_SECONDS); // Reset timer
   }, []);
+
+  // Public helper to start the game (and timer)
+  const startGame = useCallback(() => {
+    setGameState(GAME_STATE.PLAYING);
+    // If for some reason remainingTime is not full, reset it here.
+    // This might happen if a game was lost by timeout and then "New Game" is pressed.
+    if (remainingTime <= 0 || remainingTime === GAME_DURATION_SECONDS) {
+      setRemainingTime(GAME_DURATION_SECONDS);
+    }
+  }, [remainingTime]);
 
   // Timer effect
   useEffect(() => {
@@ -176,6 +186,7 @@ const useWordle = () => {
     removeLetter,
     submitGuess,
     resetGame,
+    startGame, // Export new function
     remainingTime,
   };
 };

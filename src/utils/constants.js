@@ -28,6 +28,7 @@ export const COLOR_MAP = {
 };
 
 export const GAME_STATE = {
+  IDLE: 'idle',
   PLAYING: 'playing',
   WON: 'won',
   LOST: 'lost',

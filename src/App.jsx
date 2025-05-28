@@ -42,6 +42,7 @@ function App() {
     removeLetter,
     submitGuess,
     resetGame,
+    startGame, // Import new function
     remainingTime,
   } = useWordle();
 
@@ -50,11 +51,21 @@ function App() {
   const [showProfile, setShowProfile] = useState(false);
   const [userScoreboard, setUserScoreboard] = useState({});
   const [gameStartTime, setGameStartTime] = useState(null);
+  const [displayedGameNumber, setDisplayedGameNumber] = useState(0); // New state for UI display
+  const [prevGameState, setPrevGameState] = useState(null); // To track game state transitions
 
-  // Initialize game start time when game starts
+  // Effect to track previous game state
+  useEffect(() => {
+    setPrevGameState(gameState);
+  }, [gameState]);
+
+  // Initialize game start time when game starts or reset when game ends/stops
   useEffect(() => {
     if (gameState === GAME_STATE.PLAYING && !gameStartTime) {
       setGameStartTime(Date.now());
+    } else if (gameState !== GAME_STATE.PLAYING && gameStartTime) {
+      // Reset gameStartTime if game is no longer playing (e.g., won, lost, or idle)
+      setGameStartTime(null);
     }
   }, [gameState, gameStartTime]);
 
@@ -94,6 +105,36 @@ function App() {
     }
   }, [gameState, gameStartTime, isLoggedIn, activeUser, solution, currentRow, recordGameResult, userScoreboard]);
 
+  // Effect to manage the displayed game number
+  useEffect(() => {
+    if (isLoggedIn && activeUser) {
+      const prospectiveGameNumber = getCurrentUserGameNumberInSeries(activeUser.email, userScoreboard);
+
+      if (gameState === GAME_STATE.PLAYING) {
+        setDisplayedGameNumber(prospectiveGameNumber);
+      } else if (gameState === GAME_STATE.WON || gameState === GAME_STATE.LOST) {
+        if (prevGameState === GAME_STATE.PLAYING) {
+          // Game just finished, displayedGameNumber is already correct (showing the finished game's number).
+          // No change needed.
+        } else {
+          // App loaded into a WON/LOST state, or state changed without passing through PLAYING.
+          // prospectiveGameNumber is (games_played + 1). We want to show games_played.
+          if (prospectiveGameNumber > 0) {
+            setDisplayedGameNumber(prospectiveGameNumber - 1);
+          } else {
+            setDisplayedGameNumber(0); // Series completed or no active series.
+          }
+        }
+      } else if (displayedGameNumber === 0 && prospectiveGameNumber > 0) {
+          // Initial load, not PLAYING, not WON/LOST (e.g. user logs in, no game started yet in series)
+          // Or if for some reason gameState is not one of the above but a series exists.
+          setDisplayedGameNumber(prospectiveGameNumber);
+      }
+    } else {
+      setDisplayedGameNumber(0); // User logged out
+    }
+  }, [gameState, prevGameState, isLoggedIn, activeUser, userScoreboard]);
+
   // Handle profile switching - reset game state
   const handleSwitchUser = (email) => {
     const success = switchUser(email);
@@ -116,11 +157,12 @@ function App() {
     setUserScoreboard({});
   };
 
-  // Handle new game - reset hint and start time
+  // Handle new game - reset hint and start game
   const handleNewGame = () => {
-    resetGame();
+    resetGame(); // Resets game state to IDLE, gets new word, resets timer
+    startGame(); // Sets game state to PLAYING, which starts the timer
     setShowHint(false);
-    setGameStartTime(null);
+    // gameStartTime is now managed by the useEffect above
   };
 
   const formatTime = (seconds) => {
@@ -133,8 +175,10 @@ function App() {
     // Only allow game input if user is logged in
     if (!isLoggedIn) return;
 
-    if (gameState !== GAME_STATE.PLAYING && key !== 'ENTER') {
-      if (gameState !== GAME_STATE.PLAYING) return;
+    // Allow keyboard input only if game is PLAYING or if it's ENTER/BACKSPACE
+    // which might be used to start/reset in some contexts (though not here directly)
+    if (gameState !== GAME_STATE.PLAYING && key !== 'ENTER' && key !== 'BACKSPACE' && key !== 'DELETE') {
+      return;
     }
 
     if (key === 'ENTER') {
@@ -177,8 +221,8 @@ function App() {
     currentRow === MAX_GUESSES - 1;
 
   // Get current series info for display
-  const currentGameNumber = isLoggedIn && activeUser ? 
-    getCurrentUserGameNumberInSeries(activeUser.email, userScoreboard) : 0;
+  // const currentGameNumber = isLoggedIn && activeUser ? 
+  //   getCurrentUserGameNumberInSeries(activeUser.email, userScoreboard) : 0;
 
   // Show loading state
   if (userLoading) {
@@ -245,8 +289,8 @@ function App() {
         <div className="header-info">
           <div className="user-info">
             <span className="welcome-text">Welcome, {activeUser.fullName}</span>
-            {currentGameNumber > 0 && (
-              <span className="series-info">Game {currentGameNumber} of 3</span>
+            {displayedGameNumber > 0 && (
+              <span className="series-info">Game {displayedGameNumber} of 3</span>
             )}
           </div>
           <div className="header-actions">
