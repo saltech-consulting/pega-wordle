@@ -129,12 +129,12 @@ const Leaderboard = ({ currentPlayerName, scoreboardData, userProfiles = {} }) =
                 <span className="stat-value">{player.totalSeriesCompleted}</span>
               </div>
               <div className="stat-item">
-                <span className="stat-label">Avg:</span>
-                <span className="stat-value">{player.averageAttempts} attempts</span>
+                <span className="stat-label">Avg tries:</span>
+                <span className="stat-value">{player.averageAttempts}</span>
               </div>
               {player.fastestGame && (
                 <div className="stat-item">
-                  <span className="stat-label">Fastest:</span>
+                  <span className="stat-label">Best time:</span>
                   <span className="stat-value">{formatTime(player.fastestGame.timeTaken)}</span>
                 </div>
               )}
