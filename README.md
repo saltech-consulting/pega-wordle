@@ -44,7 +44,68 @@ Before you can run the game, you need to install Node.js. This is a software env
 
 ---
 
-## 3 Run the Game
+## 🔄 Updating to the Latest Version
+
+If there's a newer version of the game available on GitHub, follow these steps to update your local copy:
+
+### Method 1: Simple Download (Recommended for most users)
+
+1. **Back up your current game data (if desired):**
+   * Before updating, your game data is stored in your browser's local storage
+   * This includes user profiles, scores, and game history
+   * **Note:** This data will persist even after updating the game files
+
+2. **Download the latest version:**
+   * Go to the Pega-Wordle GitHub page
+   * Click **< > Code → Download ZIP** to get the latest version
+
+3. **Replace your old files:**
+   * Delete your current `pega-wordle` folder
+   * Extract the new ZIP to the same location
+   * Your game data will automatically be available when you start the updated game
+
+4. **Install any new dependencies:**
+   ```bash
+   cd path/to/pega-wordle
+   npm install
+   ```
+
+5. **Start the updated game:**
+   ```bash
+   npm run dev
+   ```
+
+### Method 2: Using Git (For technical users)
+
+If you're comfortable with Git commands:
+
+1. **Navigate to your game folder:**
+   ```bash
+   cd path/to/pega-wordle
+   ```
+
+2. **Pull the latest changes:**
+   ```bash
+   git pull origin main
+   ```
+
+3. **Install any new dependencies:**
+   ```bash
+   npm install
+   ```
+
+4. **Start the updated game:**
+   ```bash
+   npm run dev
+   ```
+
+### ✅ Checking Your Version
+
+To see what version you're running, look for the latest commit hash in your browser's developer console, or check the GitHub repository's latest commits to compare.
+
+---
+
+## 4 Run the Game
 
 1. **Open a command-line window:**
 
@@ -90,7 +151,7 @@ Press `Ctrl + C` in the command-line window (confirm with `y` if prompted). Clos
 
 ---
 
-## 4 · Update the Word Bank
+## 5 · Update the Word Bank
 
 The list of valid solutions—and their on-screen hints—lives in **`src/data/pegawords.json`**. Each entry looks like this:
 
