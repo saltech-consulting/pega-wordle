@@ -393,9 +393,6 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
                 status={aiStatus}
                 gameStatus={aiGameStatus}
               />
-              <div style={{fontSize: '12px', color: '#666'}}>
-                AI Debug: {aiGuesses.length} guesses, Status: {aiGameStatus}, Thinking: {isThinking.toString()}
-              </div>
             </div>
 
             {/* VS Divider */}
@@ -418,10 +415,6 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
                 statuses={createStatuses()}
                 currentRow={playerGuesses.length}
               />
-              <div style={{fontSize: '12px', color: '#666'}}>
-                Player Debug: {playerGuesses.length} guesses, Current: "{currentGuess}", CurrentRow: {playerGuesses.length}
-                <br/>Guesses: {JSON.stringify(playerGuesses)}
-              </div>
               
               <Keyboard 
                 keyStatuses={usedKeys} 
@@ -435,9 +428,6 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
             <div className="game-controls">
               <button className="play-again-button" onClick={handlePlayAgain}>
                 Play Again
-              </button>
-              <button className="back-to-menu-button" onClick={onBackToMenu}>
-                Back to Menu
               </button>
             </div>
           )}

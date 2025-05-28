@@ -2033,8 +2033,8 @@ main {
 }
 
 .ai-board-container {
-  width: 100%;
-  max-width: 400px;
+  width: 320px;
+  max-width: 320px;
 }
 
 .ai-header {
@@ -2108,19 +2108,21 @@ main {
 
 /* AI Board */
 .ai-board {
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  gap: 5px;
   margin-bottom: 1rem;
 }
 
 .ai-guess-row {
   display: flex;
-  gap: 0.3rem;
-  margin-bottom: 0.3rem;
+  gap: 5px;
   justify-content: center;
 }
 
 .ai-tile {
-  width: 62px;
-  height: 62px;
+  width: 60px;
+  height: 60px;
   border: 2px solid #3a3a3c;
   display: flex;
   align-items: center;
@@ -2217,8 +2219,8 @@ main {
   padding: 1rem;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
-  width: 100%;
-  max-width: 400px;
+  width: 320px;
+  max-width: 320px;
 }
 
 .player-header h3 {
