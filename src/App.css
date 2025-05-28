@@ -1012,6 +1012,397 @@ main {
   }
 }
 
+/* Admin Panel Styles */
+.admin-panel-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.admin-panel {
+  background: #1e1e1e;
+  border: 2px solid #dc2626;
+  border-radius: 12px;
+  width: 90vw;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #dc2626, #991b1b);
+  color: white;
+}
+
+.admin-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.admin-close-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.admin-close-button:hover {
+  opacity: 1;
+}
+
+.admin-tabs {
+  display: flex;
+  background-color: #2a2a2a;
+  border-bottom: 1px solid #444;
+}
+
+.admin-tab {
+  flex: 1;
+  padding: 1rem;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s;
+  border-bottom: 2px solid transparent;
+}
+
+.admin-tab:hover {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.admin-tab.active {
+  color: white;
+  border-bottom-color: #dc2626;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.admin-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+/* Overview Tab */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #dc2626;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.admin-rankings {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ranking-item:last-child {
+  border-bottom: none;
+}
+
+.ranking-item .rank {
+  font-weight: bold;
+  margin-right: 1rem;
+  color: #dc2626;
+}
+
+.ranking-item .name {
+  flex: 1;
+}
+
+.ranking-item .score {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Users Tab */
+.user-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.control-button {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.control-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.control-button.danger {
+  background: rgba(220, 38, 38, 0.2);
+  border-color: #dc2626;
+  color: #ef4444;
+}
+
+.control-button.danger:hover {
+  background: rgba(220, 38, 38, 0.3);
+}
+
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.user-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 1rem;
+}
+
+.user-item.current-user {
+  opacity: 0.6;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.user-item input[type="checkbox"] {
+  width: 1.2rem;
+  height: 1.2rem;
+  cursor: pointer;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-name {
+  font-weight: bold;
+  margin-bottom: 0.2rem;
+}
+
+.user-email {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 0.2rem;
+}
+
+.user-stats {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.delete-button {
+  padding: 0.5rem 1rem;
+  background: rgba(220, 38, 38, 0.2);
+  border: 1px solid #dc2626;
+  color: #ef4444;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.delete-button:hover:not(:disabled) {
+  background: rgba(220, 38, 38, 0.3);
+}
+
+.delete-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Actions Tab */
+.action-section {
+  margin-bottom: 2rem;
+}
+
+.action-section h3 {
+  margin-bottom: 1rem;
+  color: #dc2626;
+}
+
+.action-button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.action-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.action-button.warning {
+  background: rgba(234, 179, 8, 0.1);
+  border-color: #eab308;
+  color: #fbbf24;
+}
+
+.action-button.warning:hover {
+  background: rgba(234, 179, 8, 0.2);
+}
+
+.action-button.danger {
+  background: rgba(220, 38, 38, 0.1);
+  border-color: #dc2626;
+  color: #ef4444;
+}
+
+.action-button.danger:hover {
+  background: rgba(220, 38, 38, 0.2);
+}
+
+.action-desc {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  margin-top: 0.3rem;
+}
+
+/* Confirm Dialog */
+.confirm-dialog {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirm-content {
+  background: #2a2a2a;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid #dc2626;
+  text-align: center;
+  max-width: 400px;
+}
+
+.confirm-content p {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.confirm-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.cancel-button,
+.confirm-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1rem;
+  border: none;
+}
+
+.cancel-button {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cancel-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.confirm-button.danger {
+  background: #dc2626;
+  color: white;
+}
+
+.confirm-button.danger:hover {
+  background: #b91c1c;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-panel {
+    width: 100vw;
+    max-width: 100vw;
+    border-radius: 0;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .user-item {
+    flex-wrap: wrap;
+  }
+  
+  .user-info {
+    width: 100%;
+  }
+}
+
 .back-button {
   background-color: transparent;
   color: inherit;

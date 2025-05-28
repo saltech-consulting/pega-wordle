@@ -5,6 +5,7 @@ import LoginForm from './components/LoginForm';
 import UserProfile from './components/UserProfile';
 import Leaderboard from './components/Leaderboard';
 import SeriesCompletionModal from './components/SeriesCompletionModal';
+import AdminPanel from './components/AdminPanel';
 import useWordle from './logic/useWordle';
 import useUserProfile from './hooks/useUserProfile';
 import { useEffect, useState } from 'react';
@@ -57,6 +58,7 @@ function App() {
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [showSeriesCompletion, setShowSeriesCompletion] = useState(false);
   const [seriesCompletionData, setSeriesCompletionData] = useState(null);
+  const [showAdminPanel, setShowAdminPanel] = useState(false);
   const [userScoreboard, setUserScoreboard] = useState({});
   const [gameStartTime, setGameStartTime] = useState(null);
   const [displayedGameNumber, setDisplayedGameNumber] = useState(0); // New state for UI display
@@ -249,6 +251,17 @@ function App() {
   // Effect for physical keyboard input
   useEffect(() => {
     const listener = (event) => {
+      // Check for admin panel shortcut: Ctrl+Shift+A
+      if (event.ctrlKey && event.shiftKey && event.key === 'A') {
+        event.preventDefault();
+        if (isLoggedIn && activeUser?.email?.endsWith('@saltech-consulting.com')) {
+          setShowAdminPanel(true);
+        } else if (isLoggedIn) {
+          alert('Admin access restricted to Saltech Consulting staff only.');
+        }
+        return;
+      }
+
       // Don't handle keyboard events if user is not logged in or if an input field is focused
       if (!isLoggedIn || (document.activeElement && ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName))) {
         return;
@@ -270,7 +283,7 @@ function App() {
     return () => {
       window.removeEventListener('keydown', listener);
     };
-  }, [isLoggedIn, addLetter, removeLetter, submitGuess, gameState]);
+  }, [isLoggedIn, activeUser, addLetter, removeLetter, submitGuess, gameState]);
 
   const hintEnabled = isLoggedIn && 
     gameState === GAME_STATE.PLAYING && 
@@ -441,6 +454,14 @@ function App() {
             rankingData={seriesCompletionData.rankingData}
             onViewLeaderboard={handleViewLeaderboard}
             onPlayAgain={handlePlayAgain}
+          />
+        )}
+
+        {/* Admin Panel Modal */}
+        {showAdminPanel && (
+          <AdminPanel
+            onClose={() => setShowAdminPanel(false)}
+            activeUserEmail={activeUser?.email}
           />
         )}
       </main>
