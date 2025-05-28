@@ -116,7 +116,7 @@ const Leaderboard = ({ currentPlayerName, scoreboardData, userProfiles = {} }) =
             
             <div className="best-series-col">
               <div className="series-main">
-                <strong>{player.bestSeries.totalAttempts}</strong> attempts
+                <strong>{player.wordsFound}/3</strong> words, <strong>{player.bestSeries.totalAttempts}</strong> attempts
               </div>
               <div className="series-time">
                 {formatTime(player.bestSeries.totalTime)}
@@ -144,7 +144,7 @@ const Leaderboard = ({ currentPlayerName, scoreboardData, userProfiles = {} }) =
       </div>
       
       <div className="leaderboard-footer">
-        <p>Rankings based on best series performance (fewest attempts, then fastest time)</p>
+        <p>Rankings based on best series performance (most words found, then fewest attempts, then fastest time)</p>
       </div>
     </div>
   );

@@ -297,10 +297,21 @@ const calculateSeriesScore = (series) => {
   if (!series || series.seriesStatus !== 'COMPLETED') {
     return Infinity; // Incomplete series get worst score
   }
-  // Primary: total attempts (lower is better)
-  // Secondary: total time (lower is better)
-  // Combine into a single score for easier sorting
-  return series.totalAttempts * 1000 + series.totalTime;
+  
+  // Count successful words (games with status 'won')
+  const wordsFound = series.games.filter(game => game.status === 'won').length;
+  
+  // Ranking priority:
+  // 1. Words found (more is better) - use negative to make higher counts rank better
+  // 2. Total attempts (fewer is better)
+  // 3. Total time (faster is better)
+  
+  // Use large multipliers to ensure proper priority order
+  const wordsPenalty = (3 - wordsFound) * 1000000; // Invert so more words = lower score
+  const attemptsPenalty = series.totalAttempts * 1000;
+  const timePenalty = series.totalTime;
+  
+  return wordsPenalty + attemptsPenalty + timePenalty;
 };
 
 /**
@@ -600,10 +611,14 @@ export const getUserGlobalRankings = (scoreboard, userProfiles = {}) => {
     const userProfile = userProfiles[userEmail];
     const displayName = userProfile ? userProfile.fullName : userEmail;
     
+    // Count words found in best series
+    const wordsFoundInBestSeries = bestSeries.games.filter(game => game.status === 'won').length;
+    
     rankings.push({
       userEmail,
       playerName: displayName, // For compatibility with existing components
       bestSeries,
+      wordsFound: wordsFoundInBestSeries,
       totalSeriesCompleted,
       averageAttempts: Math.round(averageAttempts * 10) / 10,
       averageTime: Math.round(averageTime),
