@@ -397,6 +397,254 @@ main {
   transition: all 0.15s;
 }
 
+/* Leaderboard Styles */
+.leaderboard {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+  color: inherit;
+}
+
+.leaderboard h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #6aaa64;
+  font-size: 2rem;
+}
+
+.leaderboard h3 {
+  color: inherit;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+/* Top Performers Section */
+.top-performers {
+  margin-bottom: 3rem;
+}
+
+.performers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.performer-card {
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  border: 2px solid;
+  transition: transform 0.2s;
+}
+
+.performer-card:hover {
+  transform: translateY(-2px);
+}
+
+.performer-card.champion {
+  border-color: #ffd700;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
+}
+
+.performer-card.speed {
+  border-color: #ff6b6b;
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 107, 107, 0.05));
+}
+
+.performer-card.efficient {
+  border-color: #4ecdc4;
+  background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(78, 205, 196, 0.05));
+}
+
+.performer-card.active {
+  border-color: #45b7d1;
+  background: linear-gradient(135deg, rgba(69, 183, 209, 0.1), rgba(69, 183, 209, 0.05));
+}
+
+.performer-title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.performer-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: inherit;
+}
+
+.performer-stat {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Rankings Table */
+.rankings-table {
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 60px 1fr 120px 150px;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: rgba(106, 170, 100, 0.2);
+  font-weight: bold;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ranking-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 120px 150px;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background-color 0.15s;
+}
+
+.ranking-row:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.ranking-row.current-player {
+  background-color: rgba(106, 170, 100, 0.2);
+  font-weight: bold;
+}
+
+.ranking-row.rank-gold {
+  background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), transparent);
+}
+
+.ranking-row.rank-silver {
+  background: linear-gradient(90deg, rgba(192, 192, 192, 0.1), transparent);
+}
+
+.ranking-row.rank-bronze {
+  background: linear-gradient(90deg, rgba(205, 127, 50, 0.1), transparent);
+}
+
+.rank-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rank-icon {
+  font-size: 1.2rem;
+}
+
+.player-col {
+  display: flex;
+  align-items: center;
+}
+
+.player-name {
+  font-weight: 500;
+}
+
+.you-indicator {
+  color: #6aaa64;
+  font-size: 0.9rem;
+  font-weight: normal;
+}
+
+.best-series-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.series-main {
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.series-time {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.stats-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2rem;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+}
+
+.stat-label {
+  opacity: 0.7;
+}
+
+.stat-value {
+  font-weight: 500;
+}
+
+.leaderboard-footer {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.leaderboard-actions {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.back-to-game-button {
+  padding: 0.75rem 2rem;
+  background-color: #6aaa64;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.back-to-game-button:hover {
+  background-color: #5a9954;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .performers-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .table-header,
+  .ranking-row {
+    grid-template-columns: 40px 1fr 80px 100px;
+    gap: 0.5rem;
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .stats-col {
+    gap: 0.1rem;
+  }
+  
+  .stat-item {
+    font-size: 0.75rem;
+  }
+  
+  .leaderboard {
+    padding: 0.5rem;
+  }
+}
+
 .back-button {
   background-color: transparent;
   color: inherit;

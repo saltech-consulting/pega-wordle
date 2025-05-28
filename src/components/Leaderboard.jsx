@@ -1,5 +1,5 @@
 import React from 'react';
-import { getGlobalRankings, getTopPerformers } from '../utils/scoreboardUtils';
+import { getUserGlobalRankings, getUserTopPerformers } from '../utils/scoreboardUtils';
 
 const formatTime = (seconds) => {
   const minutes = Math.floor(seconds / 60);
@@ -7,9 +7,9 @@ const formatTime = (seconds) => {
   return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 };
 
-const Leaderboard = ({ currentPlayerName, scoreboardData }) => {
-  const rankings = getGlobalRankings(scoreboardData);
-  const topPerformers = getTopPerformers(scoreboardData);
+const Leaderboard = ({ currentPlayerName, scoreboardData, userProfiles = {} }) => {
+  const rankings = getUserGlobalRankings(scoreboardData, userProfiles);
+  const topPerformers = getUserTopPerformers(scoreboardData, userProfiles);
 
   if (rankings.length === 0) {
     return (

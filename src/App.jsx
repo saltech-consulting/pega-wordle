@@ -3,6 +3,7 @@ import Board from './components/Board';
 import Keyboard from './components/Keyboard';
 import LoginForm from './components/LoginForm';
 import UserProfile from './components/UserProfile';
+import Leaderboard from './components/Leaderboard';
 import useWordle from './logic/useWordle';
 import useUserProfile from './hooks/useUserProfile';
 import { useEffect, useState } from 'react';
@@ -10,7 +11,9 @@ import { GAME_STATE, MAX_GUESSES } from './utils/constants';
 import { 
   loadUserScoreboard, 
   addUserGameResult, 
-  getCurrentUserGameNumberInSeries 
+  getCurrentUserGameNumberInSeries,
+  getUserGlobalRankings,
+  getUserTopPerformers
 } from './utils/scoreboardUtils';
 import { loadUserProfiles } from './utils/userProfileUtils';
 
@@ -49,6 +52,7 @@ function App() {
   // Local state
   const [showHint, setShowHint] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [userScoreboard, setUserScoreboard] = useState({});
   const [gameStartTime, setGameStartTime] = useState(null);
   const [displayedGameNumber, setDisplayedGameNumber] = useState(0); // New state for UI display
@@ -100,6 +104,11 @@ function App() {
       const updatedScoreboard = addUserGameResult(activeUser.email, gameResult, userScoreboard);
       setUserScoreboard(updatedScoreboard);
 
+      // Force leaderboard refresh for real-time updates
+      if (showLeaderboard) {
+        // Leaderboard will automatically re-render with updated data
+      }
+
       // Reset game start time
       setGameStartTime(null);
     }
@@ -142,6 +151,7 @@ function App() {
       resetGame();
       setShowHint(false);
       setShowProfile(false);
+      setShowLeaderboard(false);
       setGameStartTime(null);
     }
     return success;
@@ -153,6 +163,7 @@ function App() {
     resetGame();
     setShowHint(false);
     setShowProfile(false);
+    setShowLeaderboard(false);
     setGameStartTime(null);
     setUserScoreboard({});
   };
@@ -255,6 +266,33 @@ function App() {
     );
   }
 
+  // Show leaderboard view
+  if (showLeaderboard) {
+    const userProfiles = loadUserProfiles();
+    return (
+      <div id="app-container">
+        <header>
+          <h1>Pega-Wordle</h1>
+        </header>
+        <main>
+          <Leaderboard
+            currentPlayerName={activeUser.fullName}
+            scoreboardData={userScoreboard}
+            userProfiles={userProfiles}
+          />
+          <div className="leaderboard-actions">
+            <button 
+              onClick={() => setShowLeaderboard(false)}
+              className="back-to-game-button"
+            >
+              Back to Game
+            </button>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
   // Show profile view
   if (showProfile) {
     return (
@@ -294,6 +332,13 @@ function App() {
             )}
           </div>
           <div className="header-actions">
+            <button 
+              onClick={() => setShowLeaderboard(true)}
+              className="leaderboard-button"
+              title="View Leaderboard"
+            >
+              Leaderboard
+            </button>
             <button 
               onClick={() => setShowProfile(true)}
               className="profile-button"
