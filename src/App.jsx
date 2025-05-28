@@ -6,10 +6,12 @@ import UserProfile from './components/UserProfile';
 import Leaderboard from './components/Leaderboard';
 import SeriesCompletionModal from './components/SeriesCompletionModal';
 import AdminPanel from './components/AdminPanel';
+import AIVersusMode from './components/AIVersusMode';
 import useWordle from './logic/useWordle';
 import useUserProfile from './hooks/useUserProfile';
 import { useEffect, useState } from 'react';
 import { GAME_STATE, MAX_GUESSES } from './utils/constants';
+import wordList from './data/pegawords.json';
 import { 
   loadUserScoreboard, 
   addUserGameResult, 
@@ -59,6 +61,7 @@ function App() {
   const [showSeriesCompletion, setShowSeriesCompletion] = useState(false);
   const [seriesCompletionData, setSeriesCompletionData] = useState(null);
   const [showAdminPanel, setShowAdminPanel] = useState(false);
+  const [showAIVersus, setShowAIVersus] = useState(false);
   const [userScoreboard, setUserScoreboard] = useState({});
   const [gameStartTime, setGameStartTime] = useState(null);
   const [displayedGameNumber, setDisplayedGameNumber] = useState(0); // New state for UI display
@@ -183,6 +186,7 @@ function App() {
       setShowHint(false);
       setShowProfile(false);
       setShowLeaderboard(false);
+      setShowAIVersus(false);
       setGameStartTime(null);
     }
     return success;
@@ -195,6 +199,7 @@ function App() {
     setShowHint(false);
     setShowProfile(false);
     setShowLeaderboard(false);
+    setShowAIVersus(false);
     setGameStartTime(null);
     setUserScoreboard({});
   };
@@ -377,6 +382,18 @@ function App() {
     );
   }
 
+  // Show AI versus mode
+  if (showAIVersus) {
+    return (
+      <div id="app-container">
+        <AIVersusMode
+          wordList={wordList}
+          onBackToMenu={() => setShowAIVersus(false)}
+        />
+      </div>
+    );
+  }
+
   // Main game view
   return (
     <div id="app-container">
@@ -396,6 +413,13 @@ function App() {
               title="View Leaderboard"
             >
               Leaderboard
+            </button>
+            <button 
+              onClick={() => setShowAIVersus(true)}
+              className="ai-versus-button"
+              title="Play vs AI"
+            >
+              vs AI
             </button>
             <button 
               onClick={() => setShowProfile(true)}
