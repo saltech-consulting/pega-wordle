@@ -6,7 +6,8 @@ const AIBoard = ({
   isThinking = false, 
   difficulty = 'medium',
   status = 'Ready',
-  gameStatus = 'playing'
+  gameStatus = 'playing',
+  isGameFinished = false
 }) => {
   // Create empty rows for remaining guesses
   const emptyRows = MAX_GUESSES - guesses.length;

@@ -31,9 +31,14 @@ export class WordleAI {
   /**
    * Make the next guess based on current game state
    */
-  async makeGuess() {
+  async makeGuess(cancelCallback = null) {
     // Simulate thinking time
-    await this.simulateThinking();
+    const cancelled = await this.simulateThinking(cancelCallback);
+    
+    // If cancelled during thinking, return null
+    if (cancelled) {
+      return null;
+    }
 
     let guess;
     if (this.isFirstGuess) {
@@ -289,24 +294,42 @@ export class WordleAI {
   /**
    * Simulate thinking time based on difficulty
    */
-  async simulateThinking() {
-    const baseTime = this.getThinkingTime();
-    const variance = Math.random() * 1000;
-    const thinkingTime = baseTime + variance;
+  async simulateThinking(cancelCallback = null) {
+    const thinkingTime = this.getThinkingTime();
     
-    return new Promise(resolve => setTimeout(resolve, thinkingTime));
+    return new Promise(resolve => {
+      const timeout = setTimeout(() => resolve(false), thinkingTime);
+      
+      // Check for cancellation every 100ms if cancelCallback provided
+      if (cancelCallback) {
+        const checkCancel = setInterval(() => {
+          if (cancelCallback()) {
+            clearTimeout(timeout);
+            clearInterval(checkCancel);
+            resolve(true); // Return true to indicate cancellation
+          }
+        }, 100);
+        
+        // Clear interval when timeout completes normally
+        setTimeout(() => clearInterval(checkCancel), thinkingTime);
+      }
+    });
   }
 
   /**
-   * Get base thinking time based on difficulty
+   * Get thinking time with 20-second mean using exponential distribution
    */
   getThinkingTime() {
-    const times = {
-      easy: 2500,   // 2.5 seconds
-      medium: 2000, // 2 seconds  
-      hard: 1500    // 1.5 seconds
-    };
-    return times[this.difficulty] || times.medium;
+    // Generate exponentially distributed random time with mean of 20 seconds
+    // Using inverse transform sampling: -ln(1-U) / λ where λ = 1/mean
+    const mean = 20000; // 20 seconds in milliseconds
+    const lambda = 1 / mean;
+    const u = Math.random();
+    const exponentialTime = -Math.log(1 - u) / lambda;
+    
+    // Add some bounds to prevent extremely long waits (cap at 60 seconds)
+    // and ensure minimum reasonable time (at least 1 second)
+    return Math.max(1000, Math.min(60000, exponentialTime));
   }
 
   /**

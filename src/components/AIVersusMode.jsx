@@ -40,7 +40,7 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
     initializeAI,
     startAIGame,
     resetAI
-  } = useAIPlayer(selectedDifficulty, wordList, currentWord);
+  } = useAIPlayer(selectedDifficulty, wordList, currentWord, gameState === 'finished', winner);
 
   // Initialize AI when difficulty or word changes
   useEffect(() => {

@@ -1,8 +1,8 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { createAI } from '../utils/aiStrategy';
 import { MAX_GUESSES } from '../utils/constants';
 
-export const useAIPlayer = (difficulty, wordList, targetWord) => {
+export const useAIPlayer = (difficulty, wordList, targetWord, isGameFinished = false, winner = null) => {
   const [aiGuesses, setAiGuesses] = useState([]);
   const [isThinking, setIsThinking] = useState(false);
   const [gameStatus, setGameStatus] = useState('idle'); // idle, playing, won, lost
@@ -12,10 +12,38 @@ export const useAIPlayer = (difficulty, wordList, targetWord) => {
   const gameStartedRef = useRef(false);
   const targetWordRef = useRef(targetWord);
   const gameStatusRef = useRef(gameStatus);
+  const isProcessingRef = useRef(false);
+  const guessCountRef = useRef(0);
+  const isGameFinishedRef = useRef(isGameFinished);
+  const cancelCurrentGuessRef = useRef(false);
   
   // Update the refs whenever values change
   targetWordRef.current = targetWord;
   gameStatusRef.current = gameStatus;
+  isGameFinishedRef.current = isGameFinished;
+  
+  // Cancel current guess if game finished
+  if (isGameFinished && isProcessingRef.current) {
+    cancelCurrentGuessRef.current = true;
+  }
+
+  // Update AI status when game finishes with a winner
+  useEffect(() => {
+    if (isGameFinished && winner) {
+      if (winner === 'ai') {
+        setGameStatus('won');
+        setAiStatus('Won!');
+      } else if (winner === 'player') {
+        setGameStatus('lost');
+        setAiStatus('Lost');
+      } else if (winner === 'tie') {
+        setGameStatus('lost'); // Could be 'tied' if we want to add that status
+        setAiStatus('Tied');
+      }
+      setIsThinking(false);
+      isProcessingRef.current = false;
+    }
+  }, [isGameFinished, winner]);
 
   /**
    * Initialize the AI player
@@ -29,6 +57,9 @@ export const useAIPlayer = (difficulty, wordList, targetWord) => {
     setAiStatus('Ready');
     setIsThinking(false);
     gameStartedRef.current = false;
+    guessCountRef.current = 0;
+    isProcessingRef.current = false;
+    cancelCurrentGuessRef.current = false;
   }, [difficulty, wordList]);
 
   /**
@@ -50,30 +81,39 @@ export const useAIPlayer = (difficulty, wordList, targetWord) => {
    * Make an AI guess
    */
   const makeAIGuess = useCallback(async () => {
-    if (!aiRef.current || gameStatusRef.current === 'won' || gameStatusRef.current === 'lost') {
+    if (isProcessingRef.current) {
       return;
     }
     
-    if (aiGuesses.length >= MAX_GUESSES) {
-      setGameStatus('lost');
-      setAiStatus('Lost');
+    if (!aiRef.current || gameStatusRef.current === 'won' || gameStatusRef.current === 'lost' || isGameFinishedRef.current) {
       return;
     }
+    
+    if (guessCountRef.current >= MAX_GUESSES) {
+      setGameStatus('lost');
+      setAiStatus('Lost');
+      isProcessingRef.current = false;
+      return;
+    }
+    
+    isProcessingRef.current = true;
     
     setIsThinking(true);
     setAiStatus('Thinking...');
     
     try {
-      // AI makes its guess
-      const guess = await aiRef.current.makeGuess();
+      // AI makes its guess with cancellation support
+      const guess = await aiRef.current.makeGuess(() => cancelCurrentGuessRef.current);
       
       if (!guess) {
         setIsThinking(false);
+        isProcessingRef.current = false;
         return;
       }
       
       if (!targetWordRef.current) {
         setIsThinking(false);
+        isProcessingRef.current = false;
         return;
       }
 
@@ -90,7 +130,8 @@ export const useAIPlayer = (difficulty, wordList, targetWord) => {
         isRevealed: true
       };
       
-      // Update AI guesses
+      // Update AI guesses and guess count
+      guessCountRef.current += 1;
       setAiGuesses(prev => {
         const newGuesses = [...prev, guessObj];
         return newGuesses;
@@ -98,12 +139,13 @@ export const useAIPlayer = (difficulty, wordList, targetWord) => {
       
       // Check if AI won
       const isCorrect = feedback.every(status => status === 'correct');
-      const guessCount = aiGuesses.length + 1;
+      const guessCount = guessCountRef.current;
       
       if (isCorrect) {
         setGameStatus('won');
         setAiStatus('Won!');
         setIsThinking(false);
+        isProcessingRef.current = false;
         return;
       }
       
@@ -112,12 +154,14 @@ export const useAIPlayer = (difficulty, wordList, targetWord) => {
         setGameStatus('lost');
         setAiStatus('Lost');
         setIsThinking(false);
+        isProcessingRef.current = false;
         return;
       }
       
       // Update status and continue
       setAiStatus(aiRef.current.getStatus());
       setIsThinking(false);
+      isProcessingRef.current = false;
       
       // Schedule next guess
       setTimeout(() => {
@@ -130,6 +174,7 @@ export const useAIPlayer = (difficulty, wordList, targetWord) => {
       console.error('AI guess error:', error);
       setIsThinking(false);
       setAiStatus('Error');
+      isProcessingRef.current = false;
     }
   }, [targetWord]);
 
@@ -176,6 +221,9 @@ export const useAIPlayer = (difficulty, wordList, targetWord) => {
     setAiStatus('Ready');
     setIsThinking(false);
     gameStartedRef.current = false;
+    guessCountRef.current = 0;
+    isProcessingRef.current = false;
+    cancelCurrentGuessRef.current = false;
   }, [wordList]);
 
   /**
