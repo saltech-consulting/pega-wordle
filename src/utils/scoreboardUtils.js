@@ -432,10 +432,10 @@ export const getTopPerformers = (scoreboard) => {
  * @param {string} userEmail - The email of the user.
  * @param {object} gameResult - The result of the game (e.g., { word, attempts, timeTaken, status }).
  * @param {object} currentScoreboard - The current user scoreboard data.
- * @returns {object} The updated user scoreboard data.
+ * @returns {object} The updated user scoreboard data with completion info.
  */
 export const addUserGameResult = (userEmail, gameResult, currentScoreboard) => {
-  if (!userEmail || !gameResult) return currentScoreboard;
+  if (!userEmail || !gameResult) return { scoreboard: currentScoreboard, seriesCompleted: false };
 
   let scoreboard = { ...currentScoreboard };
   if (!scoreboard[userEmail]) {
@@ -449,8 +449,14 @@ export const addUserGameResult = (userEmail, gameResult, currentScoreboard) => {
     series.totalAttempts += gameResult.attempts;
     series.totalTime += gameResult.timeTaken;
 
+    let seriesCompleted = false;
+    let completedSeriesData = null;
+
     if (series.games.length === 3) {
       series.seriesStatus = 'COMPLETED';
+      seriesCompleted = true;
+      completedSeriesData = { ...series };
+      
       // Ensure the series object in the array is updated with the 'COMPLETED' status
       scoreboard[userEmail][seriesIndex] = series; 
       // After completing a series, update the top series for the user
@@ -460,8 +466,66 @@ export const addUserGameResult = (userEmail, gameResult, currentScoreboard) => {
       scoreboard[userEmail][seriesIndex] = series;
     }
     saveUserScoreboard(scoreboard);
+    
+    return { 
+      scoreboard, 
+      seriesCompleted, 
+      completedSeriesData 
+    };
   }
-  return scoreboard;
+  return { scoreboard, seriesCompleted: false };
+};
+
+/**
+ * Calculates ranking changes and achievements for series completion.
+ * @param {string} userEmail - The email of the user.
+ * @param {object} previousScoreboard - Scoreboard before series completion.
+ * @param {object} currentScoreboard - Scoreboard after series completion.
+ * @param {object} userProfiles - User profiles for display names.
+ * @returns {object} Ranking change data for achievement display.
+ */
+export const calculateRankingAchievements = (userEmail, previousScoreboard, currentScoreboard, userProfiles = {}) => {
+  // Get rankings before and after
+  const previousRankings = getUserGlobalRankings(previousScoreboard, userProfiles);
+  const currentRankings = getUserGlobalRankings(currentScoreboard, userProfiles);
+  
+  // Find user's positions
+  const previousUserRank = previousRankings.find(r => r.userEmail === userEmail);
+  const currentUserRank = currentRankings.find(r => r.userEmail === userEmail);
+  
+  const previousRank = previousUserRank ? previousUserRank.rank : 0;
+  const currentRank = currentUserRank ? currentUserRank.rank : 0;
+  const positionChange = previousRank > 0 ? previousRank - currentRank : 0;
+  
+  // Calculate achievements
+  const achievedTopThree = currentRank <= 3 && currentRank > 0;
+  const wasTopThreeBefore = previousRank <= 3 && previousRank > 0;
+  const newTopThreeAchievement = achievedTopThree && !wasTopThreeBefore;
+  
+  // Check if this is user's first completed series
+  const userSeries = currentScoreboard[userEmail] || [];
+  const completedSeries = userSeries.filter(s => s.seriesStatus === 'COMPLETED');
+  const isFirstSeries = completedSeries.length === 1;
+  
+  // Check if this is a new personal best
+  const isNewPersonalBest = currentUserRank && 
+    (!previousUserRank || currentUserRank.score < previousUserRank.score);
+  
+  // Calculate how many players were beaten
+  const totalPlayers = currentRankings.length;
+  const beatPlayers = Math.max(0, totalPlayers - currentRank);
+  
+  return {
+    previousRank,
+    currentRank,
+    positionChange,
+    beatPlayers,
+    isNewPersonalBest,
+    achievedTopThree,
+    newTopThreeAchievement,
+    isFirstSeries,
+    totalPlayers
+  };
 };
 
 /**

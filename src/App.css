@@ -645,6 +645,373 @@ main {
   }
 }
 
+/* Series Completion Modal Styles */
+.series-completion-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: overlay-fade-in 0.3s ease-out;
+}
+
+.series-completion-modal {
+  background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
+  border: 2px solid #6aaa64;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  animation: modal-slide-in 0.4s ease-out;
+}
+
+.completion-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(106, 170, 100, 0.3);
+  padding-bottom: 1rem;
+}
+
+.completion-header h2 {
+  margin: 0 0 0.5rem 0;
+  color: #6aaa64;
+  font-size: 2rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.perfect-badge {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #1e1e1e;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  display: inline-block;
+  animation: perfect-glow 2s ease-in-out infinite;
+}
+
+.series-stats {
+  margin-bottom: 2rem;
+}
+
+.series-stats h3 {
+  color: #6aaa64;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.stats-grid {
+  display: grid;
+  gap: 0.8rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.stat-label {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.stat-value {
+  color: #6aaa64;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.ranking-achievement {
+  margin-bottom: 2rem;
+}
+
+.ranking-achievement h3 {
+  color: #6aaa64;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.ranking-display {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.rank-comparison {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.rank-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  min-width: 80px;
+}
+
+.rank-label {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+}
+
+.rank-value,
+.animated-counter {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #6aaa64;
+}
+
+.rank-item.previous .rank-value {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.rank-arrow {
+  font-size: 2rem;
+  animation: bounce-arrow 1s ease-in-out infinite;
+}
+
+.position-change {
+  margin-bottom: 1rem;
+}
+
+.change-text {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.change-text.positive {
+  color: #4ade80;
+}
+
+.change-text.negative {
+  color: #f87171;
+}
+
+.beat-players {
+  color: #ffd700;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.achievement-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.achievement-badge {
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  text-align: center;
+  animation: badge-appear 0.5s ease-out;
+}
+
+.achievement-badge.top-three {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #1e1e1e;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.achievement-badge.personal-best {
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  color: white;
+  box-shadow: 0 4px 15px rgba(74, 222, 128, 0.3);
+}
+
+.achievement-badge.first-series {
+  background: linear-gradient(135deg, #8b5cf6, #a855f7);
+  color: white;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.completion-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.action-button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 140px;
+}
+
+.action-button.primary {
+  background: linear-gradient(135deg, #6aaa64, #5a9954);
+  color: white;
+  box-shadow: 0 4px 15px rgba(106, 170, 100, 0.3);
+}
+
+.action-button.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(106, 170, 100, 0.4);
+}
+
+.action-button.secondary {
+  background: transparent;
+  color: #6aaa64;
+  border: 2px solid #6aaa64;
+}
+
+.action-button.secondary:hover {
+  background-color: rgba(106, 170, 100, 0.1);
+  transform: translateY(-2px);
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.close-button:hover {
+  color: #6aaa64;
+}
+
+/* Animations */
+@keyframes overlay-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in-up 0.5s ease-out;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+@keyframes slide-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bounce-arrow {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes perfect-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+  }
+}
+
+@keyframes badge-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive Design for Modal */
+@media (max-width: 768px) {
+  .series-completion-modal {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .completion-header h2 {
+    font-size: 1.6rem;
+  }
+  
+  .rank-comparison {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .rank-arrow {
+    transform: rotate(90deg);
+    font-size: 1.5rem;
+  }
+  
+  .completion-actions {
+    flex-direction: column;
+  }
+  
+  .action-button {
+    width: 100%;
+  }
+}
+
 .back-button {
   background-color: transparent;
   color: inherit;

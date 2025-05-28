@@ -4,6 +4,7 @@ import Keyboard from './components/Keyboard';
 import LoginForm from './components/LoginForm';
 import UserProfile from './components/UserProfile';
 import Leaderboard from './components/Leaderboard';
+import SeriesCompletionModal from './components/SeriesCompletionModal';
 import useWordle from './logic/useWordle';
 import useUserProfile from './hooks/useUserProfile';
 import { useEffect, useState } from 'react';
@@ -13,7 +14,8 @@ import {
   addUserGameResult, 
   getCurrentUserGameNumberInSeries,
   getUserGlobalRankings,
-  getUserTopPerformers
+  getUserTopPerformers,
+  calculateRankingAchievements
 } from './utils/scoreboardUtils';
 import { loadUserProfiles } from './utils/userProfileUtils';
 
@@ -53,6 +55,8 @@ function App() {
   const [showHint, setShowHint] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [showSeriesCompletion, setShowSeriesCompletion] = useState(false);
+  const [seriesCompletionData, setSeriesCompletionData] = useState(null);
   const [userScoreboard, setUserScoreboard] = useState({});
   const [gameStartTime, setGameStartTime] = useState(null);
   const [displayedGameNumber, setDisplayedGameNumber] = useState(0); // New state for UI display
@@ -101,8 +105,33 @@ function App() {
       recordGameResult(gameResult);
 
       // Record in user scoreboard (for series tracking)
-      const updatedScoreboard = addUserGameResult(activeUser.email, gameResult, userScoreboard);
-      setUserScoreboard(updatedScoreboard);
+      const result = addUserGameResult(activeUser.email, gameResult, userScoreboard);
+      setUserScoreboard(result.scoreboard);
+
+      // Check if series was completed and show achievement modal
+      if (result.seriesCompleted && result.completedSeriesData) {
+        const userProfiles = loadUserProfiles();
+        const rankingData = calculateRankingAchievements(
+          activeUser.email,
+          userScoreboard,
+          result.scoreboard,
+          userProfiles
+        );
+
+        const seriesStats = {
+          totalAttempts: result.completedSeriesData.totalAttempts,
+          totalTime: result.completedSeriesData.totalTime,
+          gamesWon: result.completedSeriesData.games.filter(g => g.status === 'won').length,
+          totalGames: result.completedSeriesData.games.length,
+          isPerfectSeries: result.completedSeriesData.games.every(g => g.status === 'won')
+        };
+
+        setSeriesCompletionData({
+          seriesData: seriesStats,
+          rankingData
+        });
+        setShowSeriesCompletion(true);
+      }
 
       // Force leaderboard refresh for real-time updates
       if (showLeaderboard) {
@@ -173,7 +202,23 @@ function App() {
     resetGame(); // Resets game state to IDLE, gets new word, resets timer
     startGame(); // Sets game state to PLAYING, which starts the timer
     setShowHint(false);
+    setShowSeriesCompletion(false);
     // gameStartTime is now managed by the useEffect above
+  };
+
+  // Handle series completion modal actions
+  const handleSeriesCompletionClose = () => {
+    setShowSeriesCompletion(false);
+    setSeriesCompletionData(null);
+  };
+
+  const handleViewLeaderboard = () => {
+    setShowSeriesCompletion(false);
+    setShowLeaderboard(true);
+  };
+
+  const handlePlayAgain = () => {
+    handleNewGame();
   };
 
   const formatTime = (seconds) => {
@@ -386,6 +431,18 @@ function App() {
         </div>
         
         <Keyboard onKey={handleKey} keyStatuses={keyStatuses} />
+        
+        {/* Series Completion Modal */}
+        {seriesCompletionData && (
+          <SeriesCompletionModal
+            isVisible={showSeriesCompletion}
+            onClose={handleSeriesCompletionClose}
+            seriesData={seriesCompletionData.seriesData}
+            rankingData={seriesCompletionData.rankingData}
+            onViewLeaderboard={handleViewLeaderboard}
+            onPlayAgain={handlePlayAgain}
+          />
+        )}
       </main>
     </div>
   );
