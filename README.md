@@ -1,5 +1,36 @@
 # Pega-Wordle – Play it on Your Laptop
 
+An educational Wordle game featuring Pega terminology with challenging AI versus mode.
+
+## 🎯 Game Features
+
+### 🎓 **Educational Mode**
+- **Pega Terminology**: Learn 300+ Pega-specific terms and concepts
+- **Hint System**: Get definitions when you're on your final guess
+- **No Validation**: Focus on learning without word restrictions
+- **Series Tracking**: Play 3-game series with performance metrics
+
+### 🤖 **AI Versus Mode** 
+- **14,855 Word Vocabulary**: Challenging AI opponent with full English dictionary
+- **Word Validation**: Only valid English words accepted
+- **Difficulty Levels**: Easy, Medium, Hard AI opponents with different strategies
+- **Real-time Competition**: Race against AI with 2-minute timer
+- **Smart Feedback**: Invalid word detection with animated notifications
+
+### 🏆 **Competition Features**
+- **User Profiles**: Track personal statistics and best games
+- **Leaderboards**: Global rankings and top performer showcases
+- **Series Competition**: 3-game series with cumulative scoring
+- **Achievement System**: Ranking improvements and personal bests
+
+### ⚡ **Technical Highlights**
+- **Offline Capable**: Full functionality without internet connection
+- **Responsive Design**: Optimized for desktop and mobile devices
+- **Floating UI**: Modern glassmorphism design with floating controls
+- **Smart Caching**: Performance-optimized word validation system
+
+---
+
 This guide will help you get the Pega-Wordle game running on your Windows or macOS laptop.
 
 ---
