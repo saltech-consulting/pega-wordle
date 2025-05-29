@@ -166,7 +166,38 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
     setGameTime(120); // Reset timer to 2 minutes
   };
 
-  const handlePlayAgain = async () => {
+  const handleQuickRestart = async () => {
+    // Get new word
+    try {
+      const randomWord = await WordBankManager.getRandomWord('ai');
+      setCurrentWord(randomWord.toUpperCase());
+    } catch (error) {
+      console.error('Failed to get AI word, falling back to Pega words:', error);
+      if (wordList && wordList.length > 0) {
+        const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
+        setCurrentWord(randomWord.word.toUpperCase());
+      }
+    }
+    
+    // Reset both games
+    setPlayerGuesses([]);
+    setCurrentGuess('');
+    setPlayerGameStatus('idle');
+    setUsedKeys({});
+    setTurn(0);
+    setInvalidWordMessage('');
+    setIsValidatingWord(false);
+    resetAI();
+    await initializeAI();
+    setWinner(null);
+    setGameTime(120); // Reset timer
+    
+    // Start countdown immediately (skip setup screen)
+    setGameState('countdown');
+    setCountdown(3);
+  };
+
+  const handleRestartWithSettings = async () => {
     // Get new word
     try {
       const randomWord = await WordBankManager.getRandomWord('ai');
@@ -390,13 +421,22 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
       {/* Floating Action Panel */}
       <div className="floating-actions">
         {gameState === 'finished' && (
-          <button 
-            className="float-button"
-            onClick={handlePlayAgain}
-            title="Play Again"
-          >
-            🔄
-          </button>
+          <>
+            <button 
+              className="float-button primary"
+              onClick={handleQuickRestart}
+              title={`Quick Restart (${AI_DIFFICULTIES[selectedDifficulty].name})`}
+            >
+              🔄
+            </button>
+            <button 
+              className="float-button"
+              onClick={handleRestartWithSettings}
+              title="Change Difficulty"
+            >
+              ⚙️
+            </button>
+          </>
         )}
       </div>
 

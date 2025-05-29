@@ -81,6 +81,16 @@
   transform: scale(1.1);
 }
 
+.float-button.primary {
+  background: rgba(106, 170, 100, 0.9);
+  border: 1px solid rgba(106, 170, 100, 0.6);
+}
+
+.float-button.primary:hover {
+  background: rgba(106, 170, 100, 1);
+  border: 1px solid rgba(106, 170, 100, 0.8);
+}
+
 .floating-controls {
   position: fixed;
   bottom: 180px;
