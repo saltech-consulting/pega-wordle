@@ -2108,6 +2108,53 @@ main {
   font-size: 0.9rem;
 }
 
+/* Word Validation Feedback */
+.invalid-word-toast {
+  position: fixed;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(220, 38, 38, 0.9);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  z-index: 1002;
+  backdrop-filter: blur(10px);
+  border: 2px solid #dc2626;
+  animation: toast-appear 0.3s ease-out, shake 0.5s ease-in-out;
+  text-align: center;
+}
+
+.validating-word-toast {
+  position: fixed;
+  bottom: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(59, 130, 246, 0.9);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.5);
+  animation: pulse 1.5s ease-in-out infinite;
+  text-align: center;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translate(-50%, -50%) translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translate(-50%, -50%) translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translate(-50%, -50%) translateX(5px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.6; }
+}
+
 .ai-versus-header {
   display: flex;
   align-items: center;
@@ -2720,5 +2767,19 @@ main {
   .player-floating-label {
     padding: 0.5rem 0.75rem;
     margin-bottom: 0.75rem;
+  }
+
+  /* Mobile word validation feedback */
+  .invalid-word-toast {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    max-width: 90%;
+  }
+
+  .validating-word-toast {
+    bottom: 150px;
+    font-size: 0.8rem;
+    padding: 0.6rem 1.2rem;
+    max-width: 90%;
   }
 }

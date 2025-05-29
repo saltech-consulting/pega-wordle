@@ -4,6 +4,7 @@ import Board from './Board';
 import AIBoard from './AIBoard';
 import Keyboard from './Keyboard';
 import { AI_DIFFICULTIES } from '../utils/aiStrategy';
+import { WordBankManager } from '../data';
 
 const AIVersusMode = ({ wordList, onBackToMenu }) => {
   const [selectedDifficulty, setSelectedDifficulty] = useState('medium');
@@ -17,10 +18,21 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
   const [currentWord, setCurrentWord] = useState('');
   
   useEffect(() => {
-    if (wordList && wordList.length > 0) {
-      const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
-      setCurrentWord(randomWord.word.toUpperCase());
-    }
+    const initializeWord = async () => {
+      try {
+        const randomWord = await WordBankManager.getRandomWord('ai');
+        setCurrentWord(randomWord.toUpperCase());
+      } catch (error) {
+        console.error('Failed to get AI word, falling back to Pega words:', error);
+        // Fallback to original wordList
+        if (wordList && wordList.length > 0) {
+          const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
+          setCurrentWord(randomWord.word.toUpperCase());
+        }
+      }
+    };
+
+    initializeWord();
   }, [wordList]);
 
 
@@ -30,6 +42,8 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
   const [playerGameStatus, setPlayerGameStatus] = useState('idle');
   const [usedKeys, setUsedKeys] = useState({});
   const [turn, setTurn] = useState(0);
+  const [invalidWordMessage, setInvalidWordMessage] = useState('');
+  const [isValidatingWord, setIsValidatingWord] = useState(false);
 
   // AI player logic
   const {
@@ -44,10 +58,14 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
 
   // Initialize AI when difficulty or word changes
   useEffect(() => {
-    if (wordList && currentWord) {
-      initializeAI();
-    }
-  }, [wordList, currentWord, selectedDifficulty]);
+    const initAI = async () => {
+      if (currentWord) {
+        await initializeAI();
+      }
+    };
+    
+    initAI();
+  }, [currentWord, selectedDifficulty, initializeAI]);
 
   // Handle countdown
   useEffect(() => {
@@ -125,16 +143,22 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
     }
   }, [playerGameStatus, aiGameStatus, turn, aiGuesses.length, gameState]);
 
-  const handleStartGame = () => {
+  const handleStartGame = async () => {
     // Get new word for this game
-    if (wordList && wordList.length > 0) {
-      const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
-      const newWord = randomWord.word.toUpperCase();
-      setCurrentWord(newWord);
+    try {
+      const randomWord = await WordBankManager.getRandomWord('ai');
+      setCurrentWord(randomWord.toUpperCase());
+    } catch (error) {
+      console.error('Failed to get AI word, falling back to Pega words:', error);
+      if (wordList && wordList.length > 0) {
+        const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
+        setCurrentWord(randomWord.word.toUpperCase());
+      }
     }
     
     // Reset AI state
     resetAI();
+    await initializeAI();
     
     setGameState('countdown');
     setCountdown(3);
@@ -142,11 +166,17 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
     setGameTime(120); // Reset timer to 2 minutes
   };
 
-  const handlePlayAgain = () => {
+  const handlePlayAgain = async () => {
     // Get new word
-    if (wordList && wordList.length > 0) {
-      const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
-      setCurrentWord(randomWord.word.toUpperCase());
+    try {
+      const randomWord = await WordBankManager.getRandomWord('ai');
+      setCurrentWord(randomWord.toUpperCase());
+    } catch (error) {
+      console.error('Failed to get AI word, falling back to Pega words:', error);
+      if (wordList && wordList.length > 0) {
+        const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
+        setCurrentWord(randomWord.word.toUpperCase());
+      }
     }
     
     // Reset both games
@@ -155,7 +185,10 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
     setPlayerGameStatus('idle');
     setUsedKeys({});
     setTurn(0);
+    setInvalidWordMessage('');
+    setIsValidatingWord(false);
     resetAI();
+    await initializeAI();
     setGameState('setup');
     setWinner(null);
     setGameTime(120); // Reset timer
@@ -166,12 +199,22 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
   };
 
   // Process a completed guess
-  const processGuess = (guess) => {
+  const processGuess = async (guess) => {
     // Prevent duplicate processing
     if (processingRef.current) return;
     processingRef.current = true;
     
-    // Allow any 5-letter word (removed vocabulary restriction)
+    // Word validation for AI mode
+    setIsValidatingWord(true);
+    const isValid = await WordBankManager.isValidWord(guess, 'ai');
+    setIsValidatingWord(false);
+    
+    if (!isValid) {
+      setInvalidWordMessage(`"${guess}" is not a valid word!`);
+      setTimeout(() => setInvalidWordMessage(''), 3000);
+      processingRef.current = false;
+      return;
+    }
     
     // Update used keys based on the guess
     const newUsedKeys = { ...usedKeys };
@@ -408,6 +451,20 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
         <div className="floating-word-reveal">
           The word was: <strong>{currentWord}</strong>
           <div className="word-definition">{getCurrentWordDef()}</div>
+        </div>
+      )}
+
+      {/* Invalid Word Feedback */}
+      {invalidWordMessage && (
+        <div className="invalid-word-toast">
+          {invalidWordMessage}
+        </div>
+      )}
+
+      {/* Word Validation Loading */}
+      {isValidatingWord && (
+        <div className="validating-word-toast">
+          Checking word...
         </div>
       )}
 

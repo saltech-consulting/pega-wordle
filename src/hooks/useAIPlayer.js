@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { createAI } from '../utils/aiStrategy';
 import { MAX_GUESSES } from '../utils/constants';
+import { WordBankManager } from '../data';
 
 export const useAIPlayer = (difficulty, wordList, targetWord, isGameFinished = false, winner = null) => {
   const [aiGuesses, setAiGuesses] = useState([]);
@@ -48,18 +49,38 @@ export const useAIPlayer = (difficulty, wordList, targetWord, isGameFinished = f
   /**
    * Initialize the AI player
    */
-  const initializeAI = useCallback(() => {
-    if (!wordList || wordList.length === 0) return;
-    
-    aiRef.current = createAI(difficulty, wordList);
-    setAiGuesses([]);
-    setGameStatus('idle');
-    setAiStatus('Ready');
-    setIsThinking(false);
-    gameStartedRef.current = false;
-    guessCountRef.current = 0;
-    isProcessingRef.current = false;
-    cancelCurrentGuessRef.current = false;
+  const initializeAI = useCallback(async () => {
+    try {
+      // Use AI word bank for more challenging gameplay
+      const aiWordBank = await WordBankManager.getWordBank('ai');
+      const formattedWords = aiWordBank.words.map(word => 
+        typeof word === 'string' ? { word: word.toUpperCase() } : word
+      );
+      
+      aiRef.current = createAI(difficulty, formattedWords);
+      setAiGuesses([]);
+      setGameStatus('idle');
+      setAiStatus('Ready');
+      setIsThinking(false);
+      gameStartedRef.current = false;
+      guessCountRef.current = 0;
+      isProcessingRef.current = false;
+      cancelCurrentGuessRef.current = false;
+    } catch (error) {
+      console.error('Failed to initialize AI with large word bank, falling back:', error);
+      // Fallback to original wordList
+      if (wordList && wordList.length > 0) {
+        aiRef.current = createAI(difficulty, wordList);
+        setAiGuesses([]);
+        setGameStatus('idle');
+        setAiStatus('Ready');
+        setIsThinking(false);
+        gameStartedRef.current = false;
+        guessCountRef.current = 0;
+        isProcessingRef.current = false;
+        cancelCurrentGuessRef.current = false;
+      }
+    }
   }, [difficulty, wordList]);
 
   /**
