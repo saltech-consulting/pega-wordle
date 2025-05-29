@@ -23,7 +23,7 @@ export class WordBankManager {
     switch(mode) {
       case 'ai':
         try {
-          const aiWords = await import('./ai-wordbank.json');
+          const aiWords = await import('./ai-words.json');
           wordBank = {
             words: aiWords.default,
             hasValidation: true,
