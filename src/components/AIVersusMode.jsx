@@ -326,21 +326,45 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
 
   return (
     <div className="ai-versus-mode">
-      {/* Header */}
-      <div className="ai-versus-header">
-        <button className="back-button" onClick={onBackToMenu}>
-          ← Back to Menu
+      {/* Floating Timer */}
+      {gameState === 'playing' && (
+        <div className="floating-timer">
+          Time: {Math.floor(gameTime / 60)}:{(gameTime % 60).toString().padStart(2, '0')}
+        </div>
+      )}
+
+      {/* Floating Back Button */}
+      <div className="floating-back-button">
+        <button 
+          className="float-button" 
+          onClick={onBackToMenu}
+          title="Back to Menu"
+        >
+          🏠
         </button>
-        <div className="ai-versus-title">
+      </div>
+
+      {/* Floating Action Panel */}
+      <div className="floating-actions">
+        {gameState === 'finished' && (
+          <button 
+            className="float-button"
+            onClick={handlePlayAgain}
+            title="Play Again"
+          >
+            🔄
+          </button>
+        )}
+      </div>
+
+      {/* Floating Header */}
+      <div className="floating-header">
+        <div className="header-logo-section">
           <img src="/saltech-logo.svg" alt="Saltech Consulting" className="logo" />
+        </div>
+        <div className="header-title-section">
           <h1>AI vs Player</h1>
         </div>
-        {gameState === 'playing' && (
-          <div className="game-timer">
-            {Math.floor(gameTime / 60)}:{(gameTime % 60).toString().padStart(2, '0')}
-          </div>
-        )}
-        <div className="spacer"></div>
       </div>
 
       {/* Setup Screen */}
@@ -373,19 +397,24 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
         </div>
       )}
 
+      {/* Toast Notifications */}
+      {gameState === 'finished' && (
+        <div className="toast-message toast-ai-result">
+          {getWinnerMessage()}
+        </div>
+      )}
+
+      {gameState === 'finished' && (
+        <div className="floating-word-reveal">
+          The word was: <strong>{currentWord}</strong>
+          <div className="word-definition">{getCurrentWordDef()}</div>
+        </div>
+      )}
+
       {/* Game Screen */}
       {(gameState === 'playing' || gameState === 'finished') && (
         <div className="ai-versus-game">
-          {/* Game Status */}
-          {gameState === 'finished' && (
-            <div className="game-result">
-              <h2>{getWinnerMessage()}</h2>
-              <p>The word was: <strong>{currentWord}</strong></p>
-              <p className="word-definition">{getCurrentWordDef()}</p>
-            </div>
-          )}
-
-          {/* Split Screen Game Boards */}
+          {/* Streamlined Split Screen Game Boards */}
           <div className="game-boards">
             {/* AI Side */}
             <div className="ai-side">
@@ -399,18 +428,16 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
               />
             </div>
 
-            {/* VS Divider */}
+            {/* Floating VS Divider */}
             <div className="vs-divider">
               <span>VS</span>
             </div>
 
             {/* Player Side */}
             <div className="player-side">
-              <div className="player-header">
-                <h3>You</h3>
-                <div className="player-status">
-                  <span>Guesses: {playerGuesses.length}/6</span>
-                </div>
+              <div className="player-floating-label">
+                <span>You</span>
+                <span className="player-status">Guesses: {playerGuesses.length}/6</span>
               </div>
               
               <Board 
@@ -426,15 +453,6 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
               />
             </div>
           </div>
-
-          {/* Game Controls */}
-          {gameState === 'finished' && (
-            <div className="game-controls">
-              <button className="play-again-button" onClick={handlePlayAgain}>
-                Play Again
-              </button>
-            </div>
-          )}
         </div>
       )}
     </div>

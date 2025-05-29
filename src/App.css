@@ -2005,7 +2005,107 @@ main {
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
-  min-height: 100vh;
+  min-height: 95vh;
+  max-height: 100vh;
+  position: relative;
+  overflow-y: auto;
+}
+
+/* Floating Elements for AI Mode */
+.ai-versus-mode .floating-timer {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.floating-back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
+.ai-versus-mode .floating-actions {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 1000;
+}
+
+.floating-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+}
+
+.floating-header .header-logo-section .logo {
+  height: 140px;
+  width: auto;
+}
+
+.floating-header .header-title-section h1 {
+  margin: 0;
+  color: #333;
+  font-size: 2rem;
+  text-align: center;
+}
+
+/* Toast Notifications for AI Mode */
+.toast-ai-result {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  z-index: 1001;
+  backdrop-filter: blur(10px);
+  border: 2px solid #6aaa64;
+  animation: toast-appear 0.3s ease-out;
+  text-align: center;
+}
+
+.floating-word-reveal {
+  position: fixed;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(106, 170, 100, 0.9);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: 80%;
+  text-align: center;
+}
+
+.floating-word-reveal .word-definition {
+  font-style: italic;
+  opacity: 0.9;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
 }
 
 .ai-versus-header {
@@ -2204,12 +2304,41 @@ main {
   font-size: 2rem;
 }
 
-.game-boards {
+.ai-versus-mode .game-boards {
   display: grid;
   grid-template-columns: 1fr 80px 1fr;
   gap: 2rem;
   align-items: start;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* Streamlined board layouts */
+.player-floating-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Match AI header height for vertical alignment */
+  min-height: 88px;
+  box-sizing: border-box;
+}
+
+.player-floating-label span:first-child {
+  font-weight: bold;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.player-status {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 /* AI Side */
@@ -2478,6 +2607,56 @@ main {
     padding: 0.5rem;
   }
   
+  /* Mobile floating elements for AI mode */
+  .ai-versus-mode .floating-timer {
+    top: 10px;
+    right: 10px;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .floating-back-button {
+    top: 10px;
+    left: 10px;
+  }
+
+  .ai-versus-mode .floating-actions {
+    top: 70px;
+    right: 10px;
+    gap: 0.3rem;
+  }
+
+  .ai-versus-mode .float-button {
+    width: 45px;
+    height: 45px;
+    font-size: 1rem;
+  }
+
+  .floating-header {
+    margin-top: 4rem;
+    gap: 0.3rem;
+  }
+
+  .floating-header .header-logo-section .logo {
+    height: 120px;
+  }
+
+  .floating-header .header-title-section h1 {
+    font-size: 1.8rem;
+  }
+
+  .floating-word-reveal {
+    bottom: 100px;
+    font-size: 0.9rem;
+    padding: 0.8rem 1.5rem;
+    max-width: 90%;
+  }
+
+  .toast-ai-result {
+    font-size: 1.2rem;
+    padding: 0.8rem 1.5rem;
+  }
+  
   .ai-versus-header {
     flex-direction: column;
     gap: 1rem;
@@ -2497,71 +2676,6 @@ main {
     height: 30px;
   }
 
-  .header-logo {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .header-logo .logo {
-    height: 35px;
-  }
-
-  .header-logo h1 {
-    font-size: 2rem;
-  }
-
-  /* Mobile floating elements */
-  .floating-timer {
-    top: 10px;
-    right: 10px;
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
-  }
-
-  .floating-actions {
-    top: 50px;
-    right: 10px;
-    gap: 0.3rem;
-  }
-
-  .float-button {
-    width: 45px;
-    height: 45px;
-    font-size: 1rem;
-  }
-
-  .floating-controls {
-    bottom: 160px;
-    right: 10px;
-    gap: 0.3rem;
-  }
-
-  .float-control-button {
-    width: 45px;
-    height: 45px;
-    font-size: 1rem;
-  }
-
-  .header-minimal {
-    gap: 0.3rem;
-  }
-
-  .header-logo-section .logo {
-    height: 120px;
-  }
-
-  .header-title-section h1 {
-    font-size: 1.8rem;
-  }
-
-  .header-user-section {
-    font-size: 0.8rem;
-  }
-
-  .header-game-section {
-    font-size: 0.75rem;
-  }
-  
   .spacer {
     display: none;
   }
@@ -2579,8 +2693,17 @@ main {
     font-size: 4rem;
   }
   
-  .game-boards {
+  .ai-versus-mode .game-boards {
     gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  .vs-divider {
+    min-height: 60px;
+  }
+  
+  .vs-divider span {
+    transform: rotate(90deg);
   }
   
   .ai-tile {
@@ -2592,5 +2715,10 @@ main {
   .game-controls {
     flex-direction: column;
     align-items: center;
+  }
+
+  .player-floating-label {
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.75rem;
   }
 }
