@@ -151,7 +151,19 @@ Press `Ctrl + C` in the command-line window (confirm with `y` if prompted). Clos
 
 ---
 
-## 5 · Update the Word Bank
+## 5 · Administrator Manual
+
+For booth administrators and event organizers, a comprehensive administrator manual is available at [`docs/administrator-manual.md`](docs/administrator-manual.md). This manual covers:
+
+- Complete setup and deployment instructions
+- Admin panel access and features (restricted to `@saltech-consulting.com` users)
+- User management and data administration
+- Troubleshooting and technical reference
+- Customization options for booth demonstrations
+
+---
+
+## 6 · Update the Word Bank
 
 The list of valid solutions—and their on-screen hints—lives in **`src/data/pegawords.json`**. Each entry looks like this:
 
