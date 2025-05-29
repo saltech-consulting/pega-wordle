@@ -12,12 +12,15 @@ const AIBoard = ({
   // Create empty rows for remaining guesses
   const emptyRows = MAX_GUESSES - guesses.length;
   
-  const renderTile = (letter, status, index, isRevealed = true) => {
+  const renderTile = (letter, status, index, isRevealed = true, showActualLetter = false) => {
     const tileClass = `tile ai-tile ${status || ''} ${isRevealed ? 'revealed' : ''}`;
+    
+    // Show actual letter if game is finished or if showActualLetter is true
+    const displayText = isRevealed ? (letter ? (showActualLetter ? letter : '?') : '') : '';
     
     return (
       <div key={index} className={tileClass}>
-        {isRevealed ? (letter ? '?' : '') : ''}
+        {displayText}
       </div>
     );
   };
@@ -28,7 +31,8 @@ const AIBoard = ({
     for (let i = 0; i < WORD_LENGTH; i++) {
       const letter = guess.letters?.[i] || '';
       const status = guess.feedback?.[i] || '';
-      tiles.push(renderTile(letter, status, i, guess.isRevealed));
+      // Show actual letters when game is finished
+      tiles.push(renderTile(letter, status, i, guess.isRevealed, isGameFinished));
     }
     
     return (

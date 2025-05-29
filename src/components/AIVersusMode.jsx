@@ -392,6 +392,7 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
                 difficulty={selectedDifficulty}
                 status={aiStatus}
                 gameStatus={aiGameStatus}
+                isGameFinished={gameState === 'finished'}
               />
             </div>
 
