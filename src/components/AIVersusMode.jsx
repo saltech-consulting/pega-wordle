@@ -331,7 +331,10 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
         <button className="back-button" onClick={onBackToMenu}>
           ← Back to Menu
         </button>
-        <h1>AI vs Player</h1>
+        <div className="ai-versus-title">
+          <img src="/saltech-logo.svg" alt="Saltech Consulting" className="logo" />
+          <h1>AI vs Player</h1>
+        </div>
         {gameState === 'playing' && (
           <div className="game-timer">
             {Math.floor(gameTime / 60)}:{(gameTime % 60).toString().padStart(2, '0')}

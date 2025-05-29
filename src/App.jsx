@@ -397,52 +397,92 @@ function App() {
   // Main game view
   return (
     <div id="app-container">
-      <header>
-        <h1>Pega-Wordle</h1>
-        <div className="header-info">
-          <div className="user-info">
-            <span className="welcome-text">Welcome, {activeUser.fullName}</span>
-            {displayedGameNumber > 0 && (
-              <span className="series-info">Game {displayedGameNumber} of 3</span>
-            )}
-          </div>
-          <div className="header-actions">
-            <button 
-              onClick={() => setShowLeaderboard(true)}
-              className="leaderboard-button"
-              title="View Leaderboard"
-            >
-              Leaderboard
-            </button>
-            <button 
-              onClick={() => setShowAIVersus(true)}
-              className="ai-versus-button"
-              title="Play vs AI"
-            >
-              vs AI
-            </button>
-            <button 
-              onClick={() => setShowProfile(true)}
-              className="profile-button"
-              title="View Profile"
-            >
-              Profile
-            </button>
-            <button 
-              onClick={handleLogout}
-              className="logout-button"
-              title="Logout"
-            >
-              Logout
-            </button>
-          </div>
+      {/* Floating Timer */}
+      <div className="floating-timer">
+        Time: {formatTime(remainingTime)}
+      </div>
+
+      {/* Floating Action Panel */}
+      <div className="floating-actions">
+        <button 
+          onClick={() => setShowLeaderboard(true)}
+          className="float-button"
+          title="View Leaderboard"
+        >
+          📊
+        </button>
+        <button 
+          onClick={() => setShowAIVersus(true)}
+          className="float-button"
+          title="Play vs AI"
+        >
+          🤖
+        </button>
+        <button 
+          onClick={() => setShowProfile(true)}
+          className="float-button"
+          title="View Profile"
+        >
+          👤
+        </button>
+        <button 
+          onClick={handleLogout}
+          className="float-button"
+          title="Logout"
+        >
+          🚪
+        </button>
+      </div>
+
+      {/* Floating Game Controls */}
+      <div className="floating-controls">
+        <button
+          disabled={!hintEnabled}
+          onClick={() => hintEnabled && setShowHint(v => !v)}
+          className="float-control-button"
+          title="Show Hint"
+        >
+          💡
+        </button>
+        <button 
+          onClick={handleNewGame}
+          className="float-control-button"
+          title="New Game"
+        >
+          🔄
+        </button>
+      </div>
+
+      {/* Toast Messages */}
+      {gameState === GAME_STATE.WON && (
+        <div className="toast-message toast-win">
+          🎉 You Won!
         </div>
+      )}
+      {gameState === GAME_STATE.LOST && (
+        <div className="toast-message toast-lose">
+          💀 Game Over! The word was: {solution}
+        </div>
+      )}
+
+      {/* Simplified Header */}
+      <header className="header-minimal">
+        <div className="header-logo-section">
+          <img src="/saltech-logo.svg" alt="Saltech Consulting" className="logo" />
+        </div>
+        <div className="header-title-section">
+          <h1>Pega-Wordle</h1>
+        </div>
+        <div className="header-user-section">
+          <span className="welcome-text">Welcome, {activeUser.fullName}</span>
+        </div>
+        {displayedGameNumber > 0 && (
+          <div className="header-game-section">
+            <span className="series-info">Game {displayedGameNumber} of 3</span>
+          </div>
+        )}
       </header>
       <main>
-        <div className="timer-display">Time: {formatTime(remainingTime)}</div>
-        {gameState === GAME_STATE.WON && <div className="message win">You Won!</div>}
-        {gameState === GAME_STATE.LOST && <div className="message lose">Game Over! The word was: {solution}</div>}
-
         <Board
           submittedGuesses={submittedGuesses}
           currentGuess={currentGuess}
@@ -450,22 +490,7 @@ function App() {
           currentRow={currentRow}
         />
         
-        <div className="game-controls">
-          <button
-            disabled={!hintEnabled}
-            onClick={() => hintEnabled && setShowHint(v => !v)}
-            className="hint-button"
-          >
-            Hint
-          </button>
-          {showHint && <p className="hint">{hint}</p>}
-          <button 
-            onClick={handleNewGame}
-            className="new-game-button"
-          >
-            New Game
-          </button>
-        </div>
+        {showHint && <div className="floating-hint">{hint}</div>}
         
         <Keyboard onKey={handleKey} keyStatuses={keyStatuses} />
         
