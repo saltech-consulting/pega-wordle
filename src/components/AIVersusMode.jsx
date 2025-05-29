@@ -231,7 +231,7 @@ const AIVersusMode = ({ wordList, onBackToMenu }) => {
     
     // Second pass: mark present/absent letters
     guessLetters.forEach((letter, i) => {
-      if (targetLetters[i] !== null) { // Not already marked as correct
+      if (newUsedKeys[letter] !== 'correct') { // Not already marked as correct
         if (targetLetters.includes(letter)) {
           if (newUsedKeys[letter] !== 'correct') {
             newUsedKeys[letter] = 'present';
